@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./assets/jquery.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./assets/jquery.banner.1.3.js"></script>
+    <script src="./assets/ajax.js"></script>
+    <script src="./assets/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./assets/fonts/style.css">
+</head>
+
+<body>
+    <div class="sorttop"></div>
+    <div class="line"></div>
+    <div class="sort-top">
+        <div class="container">
+            <ul class="sort-title">
+                <li>综合</li>
+                <li>|</li>
+                <li>价格 ↑</li>
+                <li>|</li>
+                <li>评论数</li>
+            </ul>
+        </div>
+    </div>
+    <div class="sort-cont">
+        <div class="container">
+            <div class="st">
+                <!-- <ul class="s-cont"> 
+            <li><img src="" alt=""></li>
+            <li></li>
+            <li></li>
+            <li><a href="#">立即购买</a></li>
+            </ul> -->
+            </div>
+        </div>
+    </div>
+    <div class="sortfooter"></div>
+
+</body>
+
+<script>
+    $('.sorttop').load("./top.html");
+    $(".sortfooter").load("./footer.html");
+    class Sort {
+        constructor() {
+            this.cont = document.querySelector(".st");
+            this.url = "data/all.json";
+            this.load();
+        }
+        load() {
+            var that = this;
+            ajax({
+                url: this.url,
+                success: (res) => {
+                    that.res = JSON.parse(res);
+                    that.display();
+                }
+            })
+        }
+        display() {
+            var str = "";
+            for(var i=0;i<this.res.length;i++){
+                str += `
+            <ul class="s-cont"> 
+                <li class="goodsimg"><img src="${this.res[i].img[0]}" alt=""></li>
+                <li class="goodsname">${this.res[i].id}</li>
+                <li class="goodsprice">￥${this.res[i].money}</li>
+                <li class="goodsbuy"><a href="#">立即购买</a></li>
+            </ul>
+            `
+            }
+            this.cont.innerHTML = str;
+
+            this.dick();
+        }
+        dick(){
+            $(".s-cont").on("click",function(){
+                var t = $(this).index();
+                $.cookie("ic",t);
+                window.location.href = "http://localhost:8080/details.html";
+            })
+                
+        }
+    }
+    new Sort();
+</script>
+
+</html>

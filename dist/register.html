@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./assets/fonts/style.css">
+</head>
+<body>
+    <div class="le_top">
+        <div class="le_top_box">
+            <a href="" class="logo_url">
+                <img src="https://i3.letvimg.com/lc03_user/201905/21/11/21/155840875152248.png"/>
+            </a>
+            <ul class="regi_top_r f_fr">
+                <li>语言：简体中文</li>
+                <li>|</li>
+                <li>国家/地区：中国</li>
+                <li>|</li>
+                <li>帮助</li>
+            </ul>
+        </div>
+        <div class="login_box_backbg">
+            <div class="regi_login_form_wrap">
+                <div class="regi_login_form_box">
+                    <div class="regi_login_form login_form">
+                        <p class="part_top reg_top8">
+                            <span class="top_title">注册</span>
+                            <a href="#" class="blu bluHover">立即登录</a>
+                        </p>
+                        <p class="part_top2">
+                            <span class="error" errorname="loginname"></span>
+                        </p>
+                        <div class="posi_box">
+                            <ul class="regi_ul regi_login_ul">
+                                <li class="regi_form_input">
+                                    <i class="icon IconPeople">📞</i>
+                                    <input type="text" placeholder="手机号" style="outline:none" class="user">
+                                </li>
+                                <li class="regi_form_input">
+                                        <i class="icon IconPeople">👜</i>
+                                        <input type="password" placeholder="密码（6-18位数字与字母）" style="outline:none" class="pass">
+                                </li>
+                                <li class="regi_form_input">
+                                        <i class="icon IconPeople">🔂</i>
+                                        <input type="password" placeholder="重复密码" style="outline:none" class="repass">
+                                </li>
+                                <li class="regi_form_input">
+                                        <i class="icon IconPeople">🎰</i>
+                                        <input type="text" placeholder="请输入验证码,点击切换" style="outline:none" id="ss" class="code">
+                                        <span class="yzm" style="font-weight: bold;"></span>
+                                </li>
+                                <li class="regi_agree">
+                                    <label for="">
+                                        <input type="checkbox" checked="true">
+                                        我已阅读并同意
+                                        <a target="_blank" href="">乐视用户协议</a>
+                                    </label>
+                                </li>
+                                <li class="reg">
+                                    <a href="#" class="sub">注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./assets/jquery.js"></script>
+<script src="./js/main.js"></script>
+<script src="./assets/jquery.banner.1.3.js"></script>
+<script src="./assets/ajax.js"></script>
+<script src="./assets/jquery.cookie.js"></script>
+<script>
+    var t1=t2=t3=t4=false; 
+    var user = document.querySelector(".user");
+    var pass = document.querySelector(".pass");
+    var repass = document.querySelector(".repass");
+    var code = document.querySelector(".code");
+    var tcode = document.querySelector(".yzm");
+    var error = document.querySelector(".error");
+    var sub = document.querySelector(".sub");
+    user.onblur = function(){
+        var reg = /^1[3456789]\d{9}$/;
+        var t=user.value;
+        if(!reg.test(t)){
+            // alert("请输入正确的手机号");
+            $(".error").css({
+                color:"#d31723",
+            })
+            error.innerHTML = "⚠ 请输入正确的手机号";
+            user.value = "";
+        }else{
+            $(".error").css({
+                color:"green",
+            })
+            error.innerHTML = "手机号输入正确";
+            t1 = true;
+        }
+    }
+    // /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{6,20}$/;
+    pass.onblur = function(){
+        var reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{6,18}$/;
+        var p = pass.value;
+        if(!reg.test(p)){
+            $(".error").css({
+                color:"#d31723",
+            })
+            error.innerHTML = "⚠ 请输入6-18位包含数字和字母的密码";
+            pass.value = "";
+        }else{
+            $(".error").css({
+                color:"green",
+            })
+            error.innerHTML = "密码设置正确";
+            t2 = true;
+        }
+    }
+
+    repass.onblur = function(){
+        var rp = repass.value;
+        var p = pass.value;
+        if(rp!=p){
+            $(".error").css({
+                color:"#d31723",
+            })
+            error.innerHTML = "⚠ 重复密码错误";
+            repass.value = "";
+        }else if(p===""){
+            $(".error").css({
+                color:"#d31723",
+            })
+            error.innerHTML = "⚠ 重复密码错误";
+            repass.value = "";
+        }else{
+            $(".error").css({
+                color:"green",
+            })
+            error.innerHTML = "密码设置成功";
+            t3 = true;
+        }
+    }
+    tcode.innerHTML = rs();
+    tcode.onclick = function(){
+        tcode.innerHTML = rs();
+    }
+    code.onblur = function(){
+        var c = code.value;
+        var tc = tcode.innerHTML;
+        if(c!=tc){
+            $(".error").css({
+                color:"#d31723",
+            })
+            error.innerHTML = "⚠ 验证码输入错误";
+            code.value = "";
+            tcode.innerHTML = rs();
+        }else{
+            $(".error").css({
+                color:"green",
+            })
+            error.innerHTML = "验证码正确";
+            t4 = true;
+        }
+    }
+    sub.onclick = function(){
+        if(t1&&t2&&t3&&t4){
+            $.cookie("name",$(".user").val(),{expires:30});
+            $.cookie("pass",$(".pass").val(),{expires:30});
+            alert("注册成功,请登录");
+            window.location.href = "http://localhost:8080/login.html";
+        }else{
+            alert("请按要求重新输入");
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function rs() {
+        var str = "";
+        for(var i=0;i<4;i++){
+            var num = random(0,9);
+            var az = String.fromCharCode(random(97,122));
+            var AZ = String. fromCharCode(random(65,90));
+
+            str += str+num+az+AZ;
+        }
+        //开始真正的随机抽取四个
+        var stq = "";
+        for(var j=0;j<4;j++){
+            stq += str[random(0,str.length-1)]
+        }
+        return stq;
+    }
+    function random(a,b) {
+        return Math.round(Math.random()*(a-b)+b);
+    }
+
+    
+</script>
+</html>

@@ -1,0 +1,104 @@
+.c-top{
+    width: 1196px;
+    height: 50px;
+    line-height: 50px;
+    float: left;
+    background: #f0f0f0;
+    li{
+        margin-right: 200px;
+        float: left;
+        span{
+            font-size: 16px;
+        }
+    }
+    .li1{margin-right: 170px;}
+}
+.c-bom>li{
+    width: 100%;
+    float: left;
+    ul{
+        height: 100px;
+        // background: #f0f0f0;
+        margin-top: 15px;
+        line-height: 100px;
+        li{
+            // width:250px;
+            overflow: hidden;
+            float: left;
+            // margin-left: 100px;
+        }
+        .check{
+            width: 50px;
+            height: 100%;
+            text-align: center;
+        }
+        .liimg{
+            width: 100px;
+            height: 100%;
+        }
+        .liname{
+            width: 100px;
+            height: 100%;
+            overflow: hidden;
+            margin-left: 100px;
+        }
+        .liprice{
+            width: 100px;
+            height: 100%;
+            margin-left: 70px;
+            text-align: center;
+        }
+        .libtn{
+            margin-left: 100px;
+            input{
+                width: 50px;
+                text-align: center;
+            }
+            button{
+                width: 20px;
+            }
+        }
+        .price{
+            width: 180px;
+            height: 100%;
+            text-align: center;
+        }
+        .del{
+            width: 100px;
+            height: 100%;
+            margin-left: 100px;
+        }
+    }
+}
+.car-aside{
+    float: left;
+    height: 50px;
+    width: 100%;
+    background: #f0f0f0;
+    margin-top: 30px;
+    font-size: 16px;
+    line-height: 50px;
+    li{
+        
+        float: left;
+    }
+    .aside1{
+        margin-left: 500px;
+        span{
+            display: inline-block;
+            width: 80px;
+            text-align: center;
+        }
+    }
+    .allpriceli{
+        margin-left: 100px;
+        width: 200px;
+        height: 100%;
+        span{
+            height: 100%;
+            display: inline-block;
+            width: 80px;
+            text-align: center;
+        }
+    }
+}

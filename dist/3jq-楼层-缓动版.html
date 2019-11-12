@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{width:1000px;height:600px;font:100px/600px "";text-align: center;}
+        .floor1{background: #299;}
+        .floor2{background: #292;}
+        .floor3{background: #229;}
+        .floor4{background: #992;}
+
+        ul{width:100px;background: #aaa;position: fixed;right:0;top:200px;margin: 0;padding:0;list-style: none;}
+        ul li{line-height:30px;border-bottom: solid 1px #fff;}
+    </style>
+</head>
+<body>
+    <div class="box floor1">1</div>
+    <div class="box floor2">2</div>
+    <div class="box floor3">3</div>
+    <div class="box floor4">4</div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</body>
+<script src="../../jquery.js"></script>
+<script>
+
+    $("ul").children("li").click(function(){
+        var i = $(this).index();
+
+        var now = $(".box").eq(i);
+        
+        var t = now.offset().top;
+
+        $("html").animate({
+            scrollTop:t
+        })
+    })
+
+</script>
+</html>

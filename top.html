@@ -1,0 +1,407 @@
+
+<style>
+  header {
+  margin: 0 auto;
+  height: 32px;
+  background: #333;
+  line-height: 32px;
+  font-size: 12px; }
+  header .headerL {
+    float: left; }
+    header .headerL li {
+      float: left; }
+      header .headerL li a {
+        color: #ffffff; }
+        header .headerL li a:hover {
+          color: #2884c7; }
+    header .headerL li:nth-child(3) {
+      margin: 0 4px; }
+    header .headerL li:nth-child(1), header .headerL .tv .tv-header .tv-headerL li:nth-child(2), .tv .tv-header .tv-headerL header .headerL li:nth-child(2), header .headerL .parts .parts-header .parts-headerL li:nth-child(2), .parts .parts-header .parts-headerL header .headerL li:nth-child(2), header .headerL .life .life-header .life-headerL li:nth-child(2), .life .life-header .life-headerL header .headerL li:nth-child(2) {
+      margin-right: 12px; }
+  header .headerR {
+    float: right;
+    width: 310px;
+    height: 32px; }
+    header .headerR li {
+      width: 83px;
+      text-align: center;
+      float: left; }
+      header .headerR li a {
+        color: #ffffff; }
+    header .headerR li:nth-child(1), header .headerR .tv .tv-header .tv-headerL li:nth-child(2), .tv .tv-header .tv-headerL header .headerR li:nth-child(2), header .headerR .parts .parts-header .parts-headerL li:nth-child(2), .parts .parts-header .parts-headerL header .headerR li:nth-child(2), header .headerR .life .life-header .life-headerL li:nth-child(2), .life .life-header .life-headerL header .headerR li:nth-child(2) {
+      width: 70px; }
+    header .headerR li:nth-child(4) {
+      width: 70px; }
+    header .headerR .hr2, header .headerR .hr3, header .headerR .hr4 {
+      height: 32px;
+      position: relative; }
+      header .headerR .hr2 .hr2ul, header .headerR .hr3 .hr2ul, header .headerR .hr4 .hr2ul, header .headerR .hr3 .hr3ul {
+        position: absolute;
+        z-index: 4000;
+        left: -1px;
+        top: 32px;
+        text-align: center;
+        border: 1px solid #dddddd;
+        width: 100%;
+        border-top: none;
+        display: none; }
+        header .headerR .hr2 .hr2ul li, header .headerR .hr3 .hr2ul li, header .headerR .hr4 .hr2ul li, header .headerR .hr3 .hr3ul li {
+          width: 100%;
+          height: 32px;
+          background: #ffffff; }
+          header .headerR .hr2 .hr2ul li:hover, header .headerR .hr3 .hr2ul li:hover, header .headerR .hr4 .hr2ul li:hover, header .headerR .hr3 .hr3ul li:hover {
+            cursor: pointer;
+            color: #2884c7; }
+    header .headerR .hr3 .hr3ul li {
+      width: 100%;
+      height: 25px;
+      line-height: 25px;
+      background: #ffffff; }
+      header .headerR .hr3 .hr3ul li:hover {
+        cursor: pointer;
+        color: #2884c7; }
+    header .headerR .hr4 .hr4div {
+      display: none;
+      position: absolute;
+      z-index: 3;
+      background: #ffffff;
+      width: 240px;
+      border: 1px solid #ddd;
+      border-top: none;
+      left: -212px;
+      padding: 20px;
+      padding-bottom: 5px; }
+      header .headerR .hr4 .hr4div figure:hover {
+        cursor: pointer; }
+      header .headerR .hr4 .hr4div figure p {
+        margin-top: -10px;
+        font-size: 14px; }
+      header .headerR .hr4 .hr4div .hr4-fg1 {
+        float: left; }
+      header .headerR .hr4 .hr4div .hr4-fg2 {
+        float: right; }
+
+/* 顶部登录注册信息 */
+nav {
+  height: 120px; }
+  nav .n-imgbox1 {
+    float: left; }
+  nav .search {
+    position: relative;
+    float: left;
+    margin: 32px 0 0 0; }
+    nav .search .search-t .search-slide {
+      display: none;
+      position: absolute;
+      top: 40px;
+      left: 0px;
+      z-index: 5000;
+      border: 1px solid #d6d6d6;
+      border-top: 0;
+      background-color: #fff;
+      width: 463px;
+      padding: 5px 0;
+      height: auto; }
+      nav .search .search-t .search-slide a {
+        display: block;
+        line-height: 28px;
+        color: #666;
+        padding: 0 8px;
+        height: 28px;
+        cursor: pointer;
+        font-size: 12px; }
+        nav .search .search-t .search-slide a:hover {
+          background-color: #f2f2f2; }
+    nav .search .search-t input {
+      float: left;
+      width: 450px;
+      border: 2px solid #2884c7;
+      height: 36px;
+      line-height: 36px;
+      padding: 0 0 0 12px;
+      margin: 0;
+      outline: 0;
+      font-size: 14px; }
+    nav .search .search-t button {
+      float: left;
+      width: 134px;
+      height: 40px;
+      background-color: #2884c7;
+      font-size: 18px;
+      color: #fff;
+      text-align: center;
+      border: 0;
+      outline: 0;
+      cursor: pointer; }
+    nav .search ul li {
+      line-height: 24px;
+      float: left; }
+      nav .search ul li a {
+        margin: 0 15px 0 0;
+        color: #2884c7;
+        font-size: 12px; }
+  nav .nav-cart {
+    float: right;
+    margin: 32px 0 0;
+    margin-right: 28px; }
+    nav .nav-cart a {
+      display: block;
+      width: 120px;
+      height: 38px;
+      line-height: 38px;
+      border: 1px solid #ddd;
+      text-align: center;
+      font-size: 14px;
+      color: #2884c7; }
+      nav .nav-cart a span {
+        line-height: 38px;
+        text-align: center;
+        font-size: 22px;
+        color: #2884c7; }
+  nav .nav-r {
+    float: right;
+    width: 88px;
+    height: 102px;
+    border: 1px solid #ddd;
+    margin: 8px 0 0;
+    position: relative; }
+    nav .nav-r span {
+      position: absolute;
+      top: -1px;
+      right: -15px;
+      width: 14px;
+      height: 14px;
+      line-height: 14px;
+      text-align: center;
+      color: #494949;
+      font-size: 12px;
+      background-color: #e9e9e9;
+      cursor: pointer; }
+    nav .nav-r p {
+      font-size: 12px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      color: #666; }
+    nav .nav-r img {
+      display: block;
+      margin: 0 auto;
+      width: 75px; }
+
+</style>
+<header>
+        <div class="container">
+            <ul class="headerL">
+                <li><a href="./index.html">商城首页</a></li>
+                <li class="index-login"><a href="./login.html">登录</a> </li>
+                <li><a href="#">|</a> </li>
+                <li class="index-register"><a href="./register.html">注册</a> </li>
+                <li class="quit" style="display: none;"><a href="#">退出</a></li>
+            </ul>
+            <ul class="headerR">
+                <li><a href="">个人中心</a> </li>
+                <li class="hr2">
+                    <a href="">合作渠道 v</a>
+                    <ul class="hr2ul">
+                        <li>电视官网</li>
+                        <li>商家入驻</li>
+                    </ul>
+                </li>
+                <li class="hr3">
+                    <a href="">帮助中心 v</a>
+                    <ul class="hr3ul">
+                        <li>配送安装</li>
+                        <li>售后服务</li>
+                        <li>运费标准</li>
+                        <li>联系客服</li>
+                    </ul>
+                </li>
+                <li class="hr4">
+                    <a href="">手机版 v</a>
+                    <div class="hr4div">
+                        <figure class="hr4-fg1">
+                            <img src="http://img1-lemall.letvimg.com/file/20160905/default/12540050008480802" />
+                            <p>扫码下载app</p>
+                        </figure>
+                        <figure class="hr4-fg2">
+                            <img src="http://img3-lemall.letvimg.com/file/20160905/default/12540104990856432" />
+                            <p>扫码访问微信商城</p>
+                        </figure>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </header>
+    <!-- 顶部登录注册信息 -->
+
+    <!-- 搜索框 -->
+    <nav>
+        <div class="container">
+            <div class="n-imgbox1">
+                <img src="http://img2-lemall.letvimg.com/le-cloud/resource/images/home/20190506/logo.png" />
+            </div>
+            <div class="search">
+                <div class="search-t">
+                    <input type="text" id="search-ipt" placeholder="超级电视">
+                    <button>搜索</button>
+                    <ul class="search-slide">
+                        <a class="">超4 X55</a>
+                        <a class="active">Y32H</a>
+                        <a class="">X55L</a>
+                        <a class="">Y43</a>
+                    </ul>
+                </div>
+                <ul>
+                    <li><a href="">超级电视</a></li>
+                    <li><a href="">以旧换新</a></li>
+                    <li><a href="">生活家</a></li>
+                </ul>
+            </div>
+            <div class="nav-r">
+                <span class="close1">x</span>
+                <p>APP下载</p>
+                <div>
+                    <img src="http://img1-lemall.letvimg.com/file/20160905/default/12540050008480802" />
+                </div>
+            </div>
+            <div class="nav-cart">
+                <a href="./car.html">
+                    <span class="icon-cart"></span>
+                </a>
+            </div>
+
+        </div>
+    </nav>
+    <!-- 搜索框 -->
+<script>
+    if($.cookie("login")==="on"){
+        $(".user-btn").css({
+            display:"none"
+        })
+        $(".index-login").css({
+            display:"none"
+        })
+        $(".index-register").css({
+            display:"none"
+        })
+        $(".quit").css({
+            display:"block"
+        })
+    }
+    $(".quit")[0].onclick = function() {
+            $.cookie("login","off");
+            $(".user-btn").css({
+                display:"block"
+            })
+            $(".index-login").css({
+                display:"block"
+            })
+            $(".index-register").css({
+                display:"block"
+            })
+            $(".quit").css({
+                display:"none"
+            })
+        }
+        $(".headerR").find(".hr2").hover(function(){
+        $(this).find("ul").css({
+            display:"block"
+        })
+        $(this).css({
+            border:"1px solid #dddddd",
+            borderBottom:"none",
+            background:"#ffffff"
+        })
+        $(this).children("a").css({
+            color:"#333",
+        })
+    },function(){
+        $(this).find("ul").css({
+            display:"none"
+        })
+        $(this).css({
+            border:"none",
+            background:"#333"
+        })
+        $(this).children("a").css({
+            color:"#fff",
+        })
+    })
+
+    $(".headerR").find(".hr3").hover(function(){
+        $(this).find("ul").css({
+            display:"block"
+        })
+        $(this).css({
+            border:"1px solid #dddddd",
+            borderBottom:"none",
+            background:"#ffffff"
+        })
+        $(this).children("a").css({
+            color:"#333",
+        })
+    },function(){
+        $(this).find("ul").css({
+            display:"none"
+        })
+        $(this).css({
+            border:"none",
+            background:"#333"
+        })
+        $(this).children("a").css({
+            color:"#fff",
+        })
+    })
+
+    $(".headerR").find(".hr4").hover(function(){
+        $(this).find(".hr4div").css({
+            display:"block"
+        })
+        $(this).css({
+            border:"1px solid #dddddd",
+            borderBottom:"none",
+            background:"#ffffff"
+        })
+        $(this).children("a").css({
+            color:"#333",
+        })
+    },function(){
+        $(this).find(".hr4div").css({
+            display:"none"
+        })
+        $(this).css({
+            border:"none",
+            background:"#333"
+        })
+        $(this).children("a").css({
+            color:"#fff",
+        })
+    })
+    //登录注册
+
+
+    //搜索框
+    $("#search-ipt").focus(function(){
+        $(".search-slide").css({
+            display:"block"
+        })
+    })
+    $("#search-ipt").blur(function(){
+        $(".search-slide").css({
+            display:"none"
+        })
+    })
+
+
+    $(".close1").click(function(){
+        $(".nav-r").css({
+            display:"none"
+        })
+        $(".nav-cart").css({
+            marginRight:0,
+        })
+    })
+    //搜索框
+
+</script>

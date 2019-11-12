@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./assets/jquery.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./assets/jquery.banner.1.3.js"></script>
+    <script src="./assets/ajax.js"></script>
+    <script src="./assets/jquery.cookie.js"></script>
+    <script src="./assets/cookie.js"></script>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./assets/fonts/style.css">
+</head>
+
+<body style="background: #fff;">
+    <div class="sorttop"></div>
+    <div class="line"></div>
+    <div class="main">
+        <div class="container">
+            <div class="main-m">
+                <div class="main-l">
+                    <div class="main-lt">
+                        <!-- <img src="" alt=""> -->
+                    </div>
+                    <div class="main-lb">
+                        <span>👈</span>
+                        <ul class="dots">
+                            <!-- <li></li> -->
+                        </ul>
+                        <span>👉</span>
+                    </div>
+                </div>
+                <div class="main-r">
+                    <div class="main-rr">
+                        <!-- <p class="main-name"></p>
+                        <p class="main-tip"></p>
+                        <p class="main-price"></p>
+                        <div class="addcart"></div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="main-list">
+                <ul>
+                    <li>商品介绍</li>
+                    <li>参数规格</li>
+                    <li>评价晒单</li>
+                    <li>售后服务</li>
+                    <li>帮助中心</li>
+                </ul>
+            </div>
+            <div class="main-tu">
+                <!-- <p><img src="" alt=""></p> -->
+            </div>
+        </div>
+    </div>
+    <div class="sortfooter"></div>
+</body>
+<script>
+    $('.sorttop').load("./top.html");
+    $(".sortfooter").load("./footer.html");
+    class Details {
+        constructor() {
+            this.url = "data/all.json";
+            this.mlt = document.querySelector(".main-lt");
+            this.dots = document.querySelector(".dots");
+            this.mrr = document.querySelector(".main-rr");
+            this.mtu = document.querySelector(".main-tu");
+            this.spa = document.querySelector(".spa");
+            this.load();
+            this.ic = $.cookie("ic");
+        }
+        load() {
+            var that = this;
+            ajax({
+                url: this.url,
+                success: (res) => {
+                    that.res = JSON.parse(res);
+                    that.display1();
+                    that.display2();
+                    that.display3();
+                    this.display4();
+                }
+            })
+            this.scale();
+            // this.addEvent();
+        }
+        display1() {
+            this.mlt.innerHTML = `<img src="${this.res[this.ic].img[0]}" alt="" >
+                <span class="spa"></span>
+            `;
+        }
+        display2() {
+            var str1 = "";
+            for (var i = 0; i < this.res[this.ic].img.length; i++) {
+                str1 += `
+                    <li class="dotli">
+                        <img src="${this.res[this.ic].img[i]}" alt="">
+                    </li>
+                `
+            }
+            this.dots.innerHTML = str1;
+        }
+        display3() {
+            var str2 = "";
+            this.mrr.innerHTML = `
+                        <p class="main-name">
+                            <span>乐融自营</span>
+                            ${this.res[this.ic].id}</p>
+                        <p class="main-tip">${this.res[this.ic].tip}</p>
+                        <p class="main-address">配送说明：<span>现货</span> 24:00前完成支付，预计（2019.11.18）之前发货</p>
+                        <p class="main-price">
+                            价格：<span>￥${this.res[this.ic].money}</span></p>
+                        <div class="addcart" index="${this.res[this.ic].id}"><span>加入购物车</span></div>
+                        <div class="scal" ><img src="${this.res[this.ic].img[0]}" alt="" class="scalimg"></div>
+            `
+            this.addEvent();
+
+        }
+        display4() {
+            var str3 = "";
+            for (var i = 0; i < this.res[this.ic].bgimg.length; i++) {
+                str3 += `
+                <p><img src="${this.res[this.ic].bgimg[i]}" alt=""></p>
+                `
+            }
+            this.mtu.innerHTML = str3;
+        }
+        scale() {
+            var that = this;
+            $(".main-lt").hover(function () {
+                $(".spa").css({
+                    display: "block",
+                })
+                $(".scal").css({
+                    display: "block",
+                })
+            }, function () {
+                $(".spa").css({
+                    display: "none",
+                })
+                $(".scal").css({
+                    display: "none",
+                })
+            })
+            this.mlt.onmousemove = function (eve) {
+                var e = eve || window.event;
+                that.move(e);
+            };
+
+        }
+        move(e) {
+            // var e = e || event;
+            //获取小盒子可移动的距离
+            var x = e.clientX - $(".main-lt").offset().left - 112;
+            var y = e.clientY - $(".main-lt").offset().top - 112;
+            // 判断小盒子到大盒子左边距为0时,让他保持为0
+            if (x < 0) {
+                x = 0;
+            }
+            // 判断小盒子到大盒子上边距为0时,让他保持为0
+            if (y < 0) {
+                y = 0;
+            }
+            // 判断小盒子到大盒子右边距为最大可移动距离时,让他保持为最大可移动距离
+            if (x > 224) {
+                x = 224
+            }
+            // 判断小盒子到大盒子下边距为最大可移动距离时,让他保持为最大可移动距离
+            if (y > 224) {
+                y = 224
+            }
+            //小盒子的位置
+            $(".spa").css({ "left": x + "px", "top": y + "px" })
+            //隐藏的大盒子的显示位置
+            $(".scalimg").css({ "left": -x * 2 + "px", "top": -y * 2 + "px" })
+        }
+        addEvent() {
+            var that = this;
+            $(".addcart")[0].onclick = function (e) {
+                console.log("cc")
+                that.id = that.ic;
+                that.goodsid = $(".addcart").attr("index");
+                that.setCookie();
+            }
+
+        }
+        setCookie() {
+            this.goods = localStorage.getItem("goods") ? JSON.parse(localStorage.getItem("goods")) : [];
+            if (this.goods.length === 0) {
+                this.goods.push({
+                    id: this.id,
+                    num: 1,
+                    goodsid:this.goodsid
+                })
+            } else {
+                var onoff = true;
+                for (var i = 0; i < this.goods.length; i++) {
+                    if (this.goods[i].id === this.id) {
+                        this.goods[i].num++;
+                        onoff = false;
+                    }
+                }
+                if (onoff) {
+                    this.goods.push({
+                        id: this.id,
+                        num: 1,
+                        goodsid:this.goodsid
+                    })
+                }
+            }
+            localStorage.setItem("goods", JSON.stringify(this.goods));
+        }
+    }
+
+    new Details()
+</script>
+
+</html>

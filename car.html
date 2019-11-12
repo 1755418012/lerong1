@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./assets/fonts/style.css">
+</head>
+
+<body style="background: #fff;">
+    <div class="sorttop"></div>
+    <div class="car-top">
+        <div class="container">
+            <ul class="c-top">
+                <li><span><input class="all" type="checkbox"> 全选</span></li>
+                <li class="li1"><span>商品</span></li>
+                <li class="li2"><span>单价</span></li>
+                <li></li>
+            </ul>
+            <div class="car-bottom">
+                <ul class="c-bom">
+                    <!-- <li>
+                        <ul>
+                            <li class="check"><input type="checkbox" num="${this.num}" ap="${this.res[i].money}"
+                                    id="checked" class="singal-checkbox" /></li>
+                            <li class="liimg"><img src="${this.res[i].img[0]}" alt="" style="width:100px;height:100px">
+                            </li>
+                            <li class="liname">${this.res[i].id}</li>
+                            <li class="liprice">￥${this.res[i].money}</li>
+                            <li class="libtn">
+                                <button price="${this.res[i].money}" class="cut">-</button>
+                                <input type="text" min="1" value="${this.goods[j].num}">
+                                <button price="${this.res[i].price}" class="addnum">+</button>
+                            </li>
+                            <li class="price">小计: ￥${this.num * this.res[i].money}</li>
+                            <li><span class="del">删除</span></li>
+                        </ul>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="sortfooter"></div>
+</body>
+<script src="./assets/jquery.js"></script>
+<script src="./js/main.js"></script>
+<script src="./assets/jquery.banner.1.3.js"></script>
+<script src="./assets/ajax.js"></script>
+<script src="./assets/jquery.cookie.js"></script>
+<script src="./assets/cookie.js"></script>
+<script>
+    $('.sorttop').load("./top.html");
+    $(".sortfooter").load("./footer.html");
+    class Car {
+        constructor() {
+            this.url = "data/all.json";
+            this.cbom = document.querySelector(".c-bom");
+            this.load();
+            this.all = document.querySelector(".all");
+            this.number = document.querySelector(".number");
+
+            this.k = 0;
+            this.w = 0;
+        }
+        load() {
+            var that = this;
+            ajax({
+                url: this.url,
+                success: (res) => {
+                    that.res = JSON.parse(res);
+                    that.getCookie();
+                }
+            })
+        }
+        getCookie() {
+            this.goods = localStorage.getItem("goods") ? JSON.parse(localStorage.getItem("goods")) : [];
+            console.log(this.res[0].img[0])
+            this.display();
+        }
+        display() {
+            console.log(this.goods)
+            var str = "";
+            var allp = 0;
+            for (var i = 0; i < this.res.length; i++) {
+                for (var j = 0; j < this.goods.length; j++) {
+                    if (i == this.goods[j].id) {
+                        this.num = this.goods[j].num;
+                        console.log(1);
+                        str += `
+                        <li>
+                            <ul>
+                                <li class="check"><input type="checkbox"  ap="${this.res[i].money}" kk="${this.goods[j].num}" id="checked" class="singal-checkbox"/></li>                               
+                                <li class="liimg"><img src="${this.res[i].img[0]}" alt="" style="width:100px;height:100px"></li>
+                                <li class="liname">${this.res[i].id}</li>
+                                <li class="liprice">￥${this.res[i].money}</li>
+                                <li class="libtn">
+                                    <button price="${this.res[i].money}"  class="cut" index="${this.res[i].id}">-</button>
+                                    <input type="text" min="1" value="${this.goods[j].num}">
+                                    <button price="${this.res[i].money}"  class="addnum" index="${this.res[i].id}">+</button>
+                                </li>
+                                <li class="price">${this.num * this.res[i].money}</li>
+                                <li><span class="del" index="${this.res[i].id}">删除</span></li>
+                            </ul>
+                        </li>
+                        
+                        `;
+                        allp += parseFloat(this.num * this.res[i].money);
+                        // anum += parseFloat(this.num);
+                    }
+                }
+            }
+
+            this.allp = allp;
+            this.cbom.innerHTML = str +
+                `
+            <ul class="car-aside">
+                <li class="aside1">您共选购<span class="number">0</span>件商品</li>
+                <li class="allpriceli">共计<span class="allprice">0</span>元</li>
+                <li>结算</li>
+            </ul>    
+            `;
+            this.addEvent();
+        }
+        addEvent() {
+            var that = this;
+            this.cbom.addEventListener("click", function (eve) {
+                var e = eve || window.event;
+                var target = e.target || e.srcElement;
+                //》》》》》》》》》》》》》》》删除事件
+                if (target.className == "del") {
+                    that.id = target.getAttribute("index");
+                    console.log(that.id)
+                    target.parentNode.parentNode.parentNode.remove();
+                    var subnum = 0;
+                    var abox = document.querySelectorAll(".singal-checkbox");
+                    // console.log(abox);
+                    for (var i = 0; i < abox.length; i++) {
+                        if (abox[i].checked) {
+                            subnum++;
+                        }
+                    }
+                    if (that.all.checked) {
+                        $(".allprice").html($(".allprice").html() - parseInt(target.parentNode.previousElementSibling.innerHTML))
+                    }
+                    if (abox.length === 0) {
+                        that.all.checked = false;
+                        $(".allprice").html("0");
+                    }
+                    that.updateCookie();
+                }
+
+                //》》》》》》》》》点击小复选款事件
+                if (target.className == "singal-checkbox") {
+                    e.stopPropagation();
+                    var abox = document.querySelectorAll(".singal-checkbox");
+                    var subnum = 0;
+                    var kj = 0;
+                    $(target).checked;//-----???
+                    if (target.checked == true) {
+                        $(".allprice").html(parseFloat($(".allprice").html()) +
+                            parseInt(target.parentNode.nextElementSibling.nextElementSibling.
+                                nextElementSibling.nextElementSibling.nextElementSibling.innerHTML))
+                    } else {
+                        $(".allprice").html(parseFloat($(".allprice").html()) -
+                            parseInt(target.parentNode.nextElementSibling.nextElementSibling.
+                                nextElementSibling.nextElementSibling.nextElementSibling.innerHTML))
+                    }
+                    for (var i = 0; i < abox.length; i++) {
+                        if (abox[i].checked) {
+                            subnum++;
+                            // kj = kj+parseFloat($(target).attr("kk"));
+                        }
+                    }
+                    if (subnum == abox.length) {
+                        that.all.checked = true;
+                    } else {
+                        that.all.checked = false;
+                    }
+                    // that.number.innerHTML = kj;
+
+                }
+                //》》》》》》》》》》如果点击是“+”按钮
+                if (target.className == "addnum") {
+                    that.id = target.getAttribute("index");
+                    target.previousElementSibling.value = parseInt(target.previousElementSibling.value) + 1;
+                    var p = $(target).attr("price");
+                    var n = parseInt(target.previousElementSibling.value);
+                    target.parentNode.nextElementSibling.innerHTML = p * n;
+                    if (target.parentNode.parentNode.children[0].children[0].checked) {
+                        $(".allprice").html(parseFloat($(".allprice").html()) + parseFloat($(target).attr("price")));
+                    }
+                    that.add();
+                }
+                //》》》》》》》》》》如果点击是 “-” 按钮
+                if (target.className == "cut") {
+                    that.id = target.getAttribute("index");
+                    if (target.nextElementSibling.value > 1) {
+                        target.nextElementSibling.value = parseFloat(target.nextElementSibling.value) - 1;
+                        var p = parseFloat($(target).attr("price"));
+                        var n = parseFloat(target.nextElementSibling.value);
+                        target.parentNode.nextElementSibling.innerHTML = p * n;
+                        if (target.parentNode.parentNode.children[0].children[0].checked) {
+                            $(".allprice").html(parseFloat($(".allprice").html()) - parseFloat($(target).attr("price")));
+                        }
+                    }
+                    that.cut();
+                }
+            })
+
+            //》》》》》》》》点击全选按钮
+            this.all.addEventListener("click", function (eve) {
+                var e = eve || window.event;
+                e.stopPropagation();
+                if (that.all.checked == true) {
+                    // that.display();
+                    $(".allprice").html(that.allp);
+                    var abox = document.querySelectorAll(".singal-checkbox");
+                    for (var i = 0; i < abox.length; i++) {
+                        abox[i].checked = true;
+                    }
+                } else {
+                    $('.allprice').html(0);
+                    var abox = document.querySelectorAll(".singal-checkbox");
+                    for (var i = 0; i < abox.length; i++) {
+                        abox[i].checked = false;
+                    }
+                }
+            })
+
+
+
+        }
+
+        updateCookie() {
+            for (var i = 0; i < this.goods.length; i++) {
+                if (this.goods[i].goodsid == this.id) {
+                    this.goods.splice(i, 1);
+                }
+            }
+            localStorage.setItem("goods", JSON.stringify(this.goods))
+        }
+        add() {
+            for (var i = 0; i < this.goods.length; i++) {   //遍历goods数组
+                if (this.goods[i].goodsid === this.id) {         //如果goods中的id与this.id相等的话
+                    this.goods[i].num++;                    //让goods中id对应的num的值++
+                    localStorage.setItem("goods", JSON.stringify(this.goods))//重新设置goods
+                }
+            }
+        }
+        cut() {
+            for (var i = 0; i < this.goods.length; i++) {   //遍历goods数组
+                if (this.goods[i].goodsid == this.id) {         //如果goods中的id与this.id相等的话
+                    this.goods[i].num--;                    //让goods中id对应的num的值--
+                    if (this.goods[i].num <= 1) {    //如果对应的num的值小于1 的话
+                        this.goods[i].num = 1       //让num的值变为1
+                    }
+                    localStorage.setItem("goods", JSON.stringify(this.goods))//重新设置goods
+                }
+            }
+        }
+    }
+    new Car();
+</script>
+
+</html>

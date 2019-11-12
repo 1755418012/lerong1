@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            .box{
+                width: 1380px;
+                height: 350px;
+                margin: 100px auto;
+                position: relative;
+                overflow: hidden;
+            }
+            .imgbox img{
+                position: absolute;
+                width: 1380px;
+                height: 350px;
+                top: 0;
+                left: 1380px;
+            }
+            .imgbox img:nth-child(1){
+                left: 0;
+            }
+            .btns input{
+                width: 40px;
+                height: 40px;
+                position: absolute;
+                top: 50%;
+                margin-top: -20px;
+                opacity: .6;
+            }
+            .btns #right{
+                right: 0;
+            }
+        </style>
+</head>
+<body>
+    <div class="box banner1">
+        <div class="imgbox">
+            <img src="https://img.zcool.cn/community/0149c55dbf8515a801209e1fcf6d37.jpg@1380w" alt="">
+            <img src="https://img.zcool.cn/community/01cdec5dbf262ea8012163baa33fe8.png@1380w" alt="">
+            <img src="https://img.zcool.cn/community/01f5105dbf2645a801209e1f618cb3.png@1380w" alt="">
+            <img src="https://img.zcool.cn/community/018c2f5dbf2606a8012163baf56d8d.png@1380w" alt="">
+        </div>
+        <div class="btns">
+            <input type="button" id="left" value="<<<">
+            <input type="button" id="right" value=">>>">
+        </div>
+    </div>
+</body>
+<script src="../../jquery.js"></script>
+<script src="./jquery.banner.1.1.js"></script>
+<script>
+    $(".banner1").banner({
+        imgs:$(".imgbox").find("img"),
+        left:$("#left"),
+        right:$("#right"),
+        autoplay:false,
+        list:false,
+        delayTime:3000,
+        moveTime:200
+    })
+</script>
+</html>
