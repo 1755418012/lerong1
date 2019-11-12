@@ -86,6 +86,7 @@
             console.log(this.goods)
             var str = "";
             var allp = 0;
+            var fpx = 0;
             for (var i = 0; i < this.res.length; i++) {
                 for (var j = 0; j < this.goods.length; j++) {
                     if (i == this.goods[j].id) {
@@ -104,18 +105,20 @@
                                     <button price="${this.res[i].money}"  class="addnum" index="${this.res[i].id}">+</button>
                                 </li>
                                 <li class="price">${this.num * this.res[i].money}</li>
-                                <li><span class="del" index="${this.res[i].id}">删除</span></li>
+                                <li><span class="del" index="${this.res[i].id}" kk="${this.goods[j].num}">删除</span></li>
                             </ul>
                         </li>
                         
                         `;
                         allp += parseFloat(this.num * this.res[i].money);
+                        fpx += parseFloat(this.num);
                         // anum += parseFloat(this.num);
                     }
                 }
             }
 
             this.allp = allp;
+            this.fpx = fpx;
             this.cbom.innerHTML = str +
                 `
             <ul class="car-aside">
@@ -135,18 +138,18 @@
                 if (target.className == "del") {
                     that.id = target.getAttribute("index");
                     console.log(that.id)
-                    target.parentNode.parentNode.parentNode.remove();
+
                     var subnum = 0;
                     var abox = document.querySelectorAll(".singal-checkbox");
                     // console.log(abox);
+                    $(".allprice").html($(".allprice").html() - target.parentNode.previousElementSibling.innerHTML);
+                    $(".number").html($(".number").html() - parseFloat(target.parentNode.previousElementSibling.previousElementSibling.children[1].value))
                     for (var i = 0; i < abox.length; i++) {
                         if (abox[i].checked) {
                             subnum++;
                         }
                     }
-                    if (that.all.checked) {
-                        $(".allprice").html($(".allprice").html() - parseInt(target.parentNode.previousElementSibling.innerHTML))
-                    }
+                    target.parentNode.parentNode.parentNode.remove();
                     if (abox.length === 0) {
                         that.all.checked = false;
                         $(".allprice").html("0");
@@ -162,13 +165,17 @@
                     var kj = 0;
                     $(target).checked;//-----???
                     if (target.checked == true) {
+
                         $(".allprice").html(parseFloat($(".allprice").html()) +
                             parseInt(target.parentNode.nextElementSibling.nextElementSibling.
                                 nextElementSibling.nextElementSibling.nextElementSibling.innerHTML))
+                        $(".number").html(parseFloat(parseFloat($(".number").html()) + parseFloat($(target).attr("kk"))))
+
                     } else {
                         $(".allprice").html(parseFloat($(".allprice").html()) -
                             parseInt(target.parentNode.nextElementSibling.nextElementSibling.
                                 nextElementSibling.nextElementSibling.nextElementSibling.innerHTML))
+                        $(".number").html(parseFloat(parseFloat($(".number").html()) - parseFloat($(target).attr("kk"))))
                     }
                     for (var i = 0; i < abox.length; i++) {
                         if (abox[i].checked) {
@@ -193,6 +200,7 @@
                     target.parentNode.nextElementSibling.innerHTML = p * n;
                     if (target.parentNode.parentNode.children[0].children[0].checked) {
                         $(".allprice").html(parseFloat($(".allprice").html()) + parseFloat($(target).attr("price")));
+                        $(".number").html(parseFloat(parseFloat($(".number").html()) + 1));
                     }
                     that.add();
                 }
@@ -206,6 +214,7 @@
                         target.parentNode.nextElementSibling.innerHTML = p * n;
                         if (target.parentNode.parentNode.children[0].children[0].checked) {
                             $(".allprice").html(parseFloat($(".allprice").html()) - parseFloat($(target).attr("price")));
+                            $(".number").html(parseFloat(parseFloat($(".number").html()) - 1));
                         }
                     }
                     that.cut();
@@ -219,6 +228,7 @@
                 if (that.all.checked == true) {
                     that.display();
                     $(".allprice").html(that.allp);
+                    $(".number").html(that.fpx);
                     var abox = document.querySelectorAll(".singal-checkbox");
                     for (var i = 0; i < abox.length; i++) {
                         abox[i].checked = true;
