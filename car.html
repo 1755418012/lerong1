@@ -59,9 +59,10 @@
         constructor() {
             this.url = "data/all.json";
             this.cbom = document.querySelector(".c-bom");
-            this.load();
             this.all = document.querySelector(".all");
             this.number = document.querySelector(".number");
+            this.load();
+            this.addEvent();
 
             this.k = 0;
             this.w = 0;
@@ -123,11 +124,11 @@
                 <li>结算</li>
             </ul>    
             `;
-            this.addEvent();
         }
         addEvent() {
             var that = this;
             this.cbom.addEventListener("click", function (eve) {
+                eve.stopPropagation();
                 var e = eve || window.event;
                 var target = e.target || e.srcElement;
                 //》》》》》》》》》》》》》》》删除事件
@@ -216,7 +217,7 @@
                 var e = eve || window.event;
                 e.stopPropagation();
                 if (that.all.checked == true) {
-                    // that.display();
+                    that.display();
                     $(".allprice").html(that.allp);
                     var abox = document.querySelectorAll(".singal-checkbox");
                     for (var i = 0; i < abox.length; i++) {

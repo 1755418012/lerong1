@@ -114,7 +114,7 @@
                         <p class="main-address">配送说明：<span>现货</span> 24:00前完成支付，预计（2019.11.18）之前发货</p>
                         <p class="main-price">
                             价格：<span>￥${this.res[this.ic].money}</span></p>
-                        <div class="addcart" index="${this.res[this.ic].id}"><span>加入购物车</span></div>
+                        <div class="addcart" index="${this.res[this.ic].id}" price="${this.res[this.ic].money}"><span>加入购物车</span></div>
                         <div class="scal" ><img src="${this.res[this.ic].img[0]}" alt="" class="scalimg"></div>
             `
             this.addEvent();
@@ -184,6 +184,7 @@
                 console.log("cc")
                 that.id = that.ic;
                 that.goodsid = $(".addcart").attr("index");
+                that.price = $(".addcart").attr("price");
                 that.setCookie();
             }
 
@@ -194,7 +195,8 @@
                 this.goods.push({
                     id: this.id,
                     num: 1,
-                    goodsid:this.goodsid
+                    goodsid:this.goodsid,
+                    price:this.price
                 })
             } else {
                 var onoff = true;
@@ -208,7 +210,8 @@
                     this.goods.push({
                         id: this.id,
                         num: 1,
-                        goodsid:this.goodsid
+                        goodsid:this.goodsid,
+                        price:this.price
                     })
                 }
             }
