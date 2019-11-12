@@ -55,6 +55,10 @@
 <script>
     $('.sorttop').load("./top.html");
     $(".sortfooter").load("./footer.html");
+    if($.cookie("login")!="on"){
+        alert("请先登录后再购买");
+        window.location.href = "./login.html";
+    }
     class Car {
         constructor() {
             this.url = "data/all.json";

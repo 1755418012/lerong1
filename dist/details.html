@@ -57,6 +57,13 @@
             </div>
         </div>
     </div>
+    <div class="tan">
+        <p>添加成功 ✅ </p>
+        <div>
+            <span style="background: #d80c18;color: #fff;" class="tan1">继续购物</span>
+            <span class="tan2">去结算</span>
+        </div>
+    </div>
     <div class="sortfooter"></div>
 </body>
 <script>
@@ -71,7 +78,21 @@
             this.mtu = document.querySelector(".main-tu");
             this.spa = document.querySelector(".spa");
             this.load();
+            this.jus2();
             this.ic = $.cookie("ic");
+        }
+        jus2(){
+            $(".tan1").on("click",function(){
+                $(".tan").css({
+                    display:"none",
+                })
+            })
+            $(".tan2").on("click",function(){
+                $(".tan").css({
+                    display:"none",
+                })
+                window.location.href = "./car.html";
+            })
         }
         load() {
             var that = this;
@@ -185,6 +206,9 @@
                 that.id = that.ic;
                 that.goodsid = $(".addcart").attr("index");
                 that.price = $(".addcart").attr("price");
+                $(".tan").css({
+                    display:"block",
+                })
                 that.setCookie();
             }
 
