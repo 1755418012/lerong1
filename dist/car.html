@@ -63,7 +63,6 @@
             this.number = document.querySelector(".number");
             this.load();
             this.addEvent();
-
             this.k = 0;
             this.w = 0;
         }
@@ -116,7 +115,6 @@
                     }
                 }
             }
-
             this.allp = allp;
             this.fpx = fpx;
             this.cbom.innerHTML = str +
@@ -137,26 +135,32 @@
                 //》》》》》》》》》》》》》》》删除事件
                 if (target.className == "del") {
                     that.id = target.getAttribute("index");
+                    target.parentNode.parentNode.parentNode.remove();
                     console.log(that.id)
-
                     var subnum = 0;
                     var abox = document.querySelectorAll(".singal-checkbox");
                     // console.log(abox);
-                    $(".allprice").html($(".allprice").html() - target.parentNode.previousElementSibling.innerHTML);
-                    $(".number").html($(".number").html() - parseFloat(target.parentNode.previousElementSibling.previousElementSibling.children[1].value))
+                    if (target.parentNode.previousElementSibling.previousElementSibling.previousElementSibling.
+                        previousElementSibling.previousElementSibling.previousElementSibling.children[0].checked) {
+                        $(".allprice").html($(".allprice").html() - target.parentNode.previousElementSibling.innerHTML);
+                        $(".number").html($(".number").html() - parseFloat(target.parentNode.previousElementSibling.previousElementSibling.children[1].value))
+
+                    }
+                    if (abox.length === 0) {
+                        that.all.checked = false;
+                        $(".allprice").html("0");
+                    }
                     for (var i = 0; i < abox.length; i++) {
                         if (abox[i].checked) {
                             subnum++;
                         }
                     }
-                    target.parentNode.parentNode.parentNode.remove();
-                    if (abox.length === 0) {
-                        that.all.checked = false;
-                        $(".allprice").html("0");
+                    console.log(abox.length);
+                    if (subnum == abox.length) {
+                        that.all.checked = true;
                     }
                     that.updateCookie();
                 }
-
                 //》》》》》》》》》点击小复选款事件
                 if (target.className == "singal-checkbox") {
                     e.stopPropagation();
@@ -165,17 +169,17 @@
                     var kj = 0;
                     $(target).checked;//-----???
                     if (target.checked == true) {
-
                         $(".allprice").html(parseFloat($(".allprice").html()) +
                             parseInt(target.parentNode.nextElementSibling.nextElementSibling.
                                 nextElementSibling.nextElementSibling.nextElementSibling.innerHTML))
-                        $(".number").html(parseFloat(parseFloat($(".number").html()) + parseFloat($(target).attr("kk"))))
-
+                        $(".number").html(parseFloat(parseFloat($(".number").html()) + parseFloat(target.parentNode.nextElementSibling.nextElementSibling.
+                            nextElementSibling.nextElementSibling.children[1].value)))
                     } else {
                         $(".allprice").html(parseFloat($(".allprice").html()) -
                             parseInt(target.parentNode.nextElementSibling.nextElementSibling.
                                 nextElementSibling.nextElementSibling.nextElementSibling.innerHTML))
-                        $(".number").html(parseFloat(parseFloat($(".number").html()) - parseFloat($(target).attr("kk"))))
+                        $(".number").html(parseFloat(parseFloat($(".number").html()) - parseFloat(target.parentNode.nextElementSibling.nextElementSibling.
+                            nextElementSibling.nextElementSibling.children[1].value)))
                     }
                     for (var i = 0; i < abox.length; i++) {
                         if (abox[i].checked) {
@@ -189,7 +193,6 @@
                         that.all.checked = false;
                     }
                     // that.number.innerHTML = kj;
-
                 }
                 //》》》》》》》》》》如果点击是“+”按钮
                 if (target.className == "addnum") {
@@ -220,7 +223,6 @@
                     that.cut();
                 }
             })
-
             //》》》》》》》》点击全选按钮
             this.all.addEventListener("click", function (eve) {
                 var e = eve || window.event;
@@ -235,17 +237,14 @@
                     }
                 } else {
                     $('.allprice').html(0);
+                    $(".number").html(0);
                     var abox = document.querySelectorAll(".singal-checkbox");
                     for (var i = 0; i < abox.length; i++) {
                         abox[i].checked = false;
                     }
                 }
             })
-
-
-
         }
-
         updateCookie() {
             for (var i = 0; i < this.goods.length; i++) {
                 if (this.goods[i].goodsid == this.id) {

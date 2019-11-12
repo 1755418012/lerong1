@@ -21,11 +21,11 @@
     <div class="sort-top">
         <div class="container">
             <ul class="sort-title">
-                <li>综合</li>
+                <li class="zonghe">综合</li>
                 <li>|</li>
-                <li>价格 ↑</li>
+                <li class="hight">价格 ↑</li>
                 <li>|</li>
-                <li>评论数</li>
+                <li class="low">价格 ↓</li>
             </ul>
         </div>
     </div>
@@ -51,6 +51,9 @@
     class Sort {
         constructor() {
             this.cont = document.querySelector(".st");
+            this.hight = $(".hight");
+            this.low = $(".low");
+            this.zonghe = $(".zonghe");
             this.url = "data/all.json";
             this.load();
         }
@@ -60,15 +63,52 @@
                 url: this.url,
                 success: (res) => {
                     that.res = JSON.parse(res);
+                    that.reo();
                     that.display();
                 }
             })
         }
+        reo() {
+            var that = this;
+            this.hight.on("click", () => {
+                this.hight.css({
+                    color:"#d80c18",
+                }).siblings().css({
+                    color: "#969696",
+                })
+                that.res.sort((a, b) => {
+                    return a.money - b.money;
+                })
+                that.display();
+
+            });
+            this.low.on("click", () => {
+                this.low.css({
+                    color:"#d80c18",
+                }).siblings().css({
+                    color: "#969696",
+                })
+                that.res.sort((a, b) => {
+                    return b.money - a.money;
+                })
+
+                that.display();
+            });
+            this.zonghe.on("click", () => {
+                this.zonghe.css({
+                    color:"#d80c18",
+                }).siblings().css({
+                    color: "#969696",
+                })
+                that.load();
+            });
+
+        }
         display() {
             var str = "";
-            for(var i=0;i<this.res.length;i++){
+            for (var i = 0; i < this.res.length; i++) {
                 str += `
-            <ul class="s-cont"> 
+            <ul class="s-cont" index="${this.res[i].index}"> 
                 <li class="goodsimg"><img src="${this.res[i].img[0]}" alt=""></li>
                 <li class="goodsname">${this.res[i].id}</li>
                 <li class="goodsprice">￥${this.res[i].money}</li>
@@ -80,13 +120,13 @@
 
             this.dick();
         }
-        dick(){
-            $(".s-cont").on("click",function(){
-                var t = $(this).index();
-                $.cookie("ic",t);
+        dick() {
+            $(".s-cont").on("click", function () {
+                var t = $(this).attr("index");
+                $.cookie("ic", t);
                 window.location.href = "http://localhost:8080/details.html";
             })
-                
+
         }
     }
     new Sort();
