@@ -54,7 +54,7 @@
             this.k = 0;
             this.w = 0;
         }
-        load() {
+        load() {    //ajax请求数据
             var that = this;
             ajax({
                 url: this.url,
@@ -64,25 +64,23 @@
                 }
             })
         }
-        getCookie() {
+        getCookie() {       //将选购页面设置的localStorage的数据保存为goods
             this.goods = localStorage.getItem("goods") ? JSON.parse(localStorage.getItem("goods")) : [];
-            console.log(this.res[0].img[0])
             this.display();
         }
-        display() {
-            console.log(this.goods)
+        display() {     //渲染页面
             var str = "";
-            var allp = 0;
-            var fpx = 0;
-            for (var i = 0; i < this.res.length; i++) {
-                for (var j = 0; j < this.goods.length; j++) {
-                    if (i == this.goods[j].id) {
+            var allp = 0;     //总价的变量
+            var fpx = 0;      //总数量的变量
+            for (var i = 0; i < this.res.length; i++) {     //遍历总的json数据
+                for (var j = 0; j < this.goods.length; j++) {   
+                    if (i == this.goods[j].id) {        //如果i和goods中的某个数据的id的值相等的话，将该条数据添加到购物车
                         this.num = this.goods[j].num;
                         console.log(1);
                         str += `
                         <li>
                             <ul>
-                                <li class="check"><input type="checkbox"  ap="${this.res[i].money}" kk="${this.goods[j].num}" id="checked" class="singal-checkbox"/></li>                               
+                                <li class="check"><input type="checkbox"  ap="${this.res[i].money}" kk="${this.goods[j].num}" class="singal-checkbox"/></li>                               
                                 <li class="liimg"><img src="${this.res[i].img[0]}" alt="" style="width:100px;height:100px"></li>
                                 <li class="liname">${this.res[i].id}</li>
                                 <li class="liprice">${this.res[i].money}</li>
@@ -97,14 +95,14 @@
                         </li>
                         
                         `;
-                        allp += parseFloat(this.num * this.res[i].money);
-                        fpx += parseFloat(this.num);
-                        // anum += parseFloat(this.num);
+                        allp += parseFloat(this.num * this.res[i].money);   //总价为每一条数据的数量 乘 该条数据对应的单价
+                        fpx += parseFloat(this.num);        //总数量为每条数据对应的数量之和
                     }
                 }
             }
             this.allp = allp;
             this.fpx = fpx;
+            //在购物车条目之后添加  总价和总数量的 存放位置
             this.cbom.innerHTML = str +
                 `
             <ul class="car-aside">
@@ -114,55 +112,62 @@
             </ul>    
             `;
         }
-        addEvent() {
+        addEvent() {   //绑定事件，注意不要直接接在display（）事件的后面，不然后面执行点击全选按钮之后，再减再渲染页面会出错
             var that = this;
-            this.cbom.addEventListener("click", function (eve) {
+            this.cbom.addEventListener("click", function (eve) {  //事件委托，点击事件绑定在商品条目外面的大框上
                 eve.stopPropagation();
                 var e = eve || window.event;
                 var target = e.target || e.srcElement;
-                //》》》》》》》》》》》》》》》删除事件
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~如果点击到的是删除按钮的话，执行删除事件
                 if (target.className == "del") {
-                    that.id = target.getAttribute("index");
-                    target.parentNode.parentNode.parentNode.remove();
-                    console.log(that.id)
-                    var subnum = 0;
-                    var abox = document.querySelectorAll(".singal-checkbox");
-                    // console.log(abox);
+                    that.id = target.getAttribute("index");  //设置id为删除按钮对应的index属性（方便后面localstorage中删除该数据）
+                    target.parentNode.parentNode.parentNode.remove();   //将页面中对应的商品条目删除
+                    var subnum = 0;         
+                    var abox = document.querySelectorAll(".singal-checkbox"); //选中所有小按钮
+                    //如果删除的这条数据对应的小按钮被选中的话
                     if (target.parentNode.previousElementSibling.previousElementSibling.previousElementSibling.
                         previousElementSibling.previousElementSibling.previousElementSibling.children[0].checked) {
+                        //总价为总价减去该条商品对应的小计
                         $(".allprice").html($(".allprice").html() - target.parentNode.previousElementSibling.innerHTML);
+                        //总数量为总数量减去该条商品对应的数量
                         $(".number").html($(".number").html() - parseFloat(target.parentNode.previousElementSibling.previousElementSibling.children[1].value))
 
                     }
+                    //如果小按钮数组为零的话
                     if (abox.length === 0) {
+                        //全选按钮不能被选中，总价为零
                         that.all.checked = false;
                         $(".allprice").html("0");
                     }
+                    //遍历所有的小按钮，如果某个被选中，那么将subnum的值加一
                     for (var i = 0; i < abox.length; i++) {
                         if (abox[i].checked) {
                             subnum++;
                         }
                     }
-                    console.log(abox.length);
+                    //subnum的值与小按钮对应的长度相等的话，说明小按钮全部被选中，将 全选  按钮设置为选中状态
                     if (subnum == abox.length) {
                         that.all.checked = true;
                     }
+                    //执行，该函数（更新goods中的数据）
                     that.updateCookie();
                 }
-                //》》》》》》》》》点击小复选款事件
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~如果点击的是小按钮的话
                 if (target.className == "singal-checkbox") {
                     e.stopPropagation();
                     var abox = document.querySelectorAll(".singal-checkbox");
                     var subnum = 0;
                     var kj = 0;
-                    $(target).checked;//-----???
-                    if (target.checked == true) {
+                    // $(target).checked; 
+                    if (target.checked == true) {  //如果点击后该小按钮的状态为被选中
+                        //总价对应的值为总价加上该条数据的小计，总数量为总数量加上该数据对应的数量按钮中的value(不要直接去找num)
                         $(".allprice").html(parseFloat($(".allprice").html()) +
                             parseInt(target.parentNode.nextElementSibling.nextElementSibling.
                                 nextElementSibling.nextElementSibling.nextElementSibling.innerHTML))
                         $(".number").html(parseFloat(parseFloat($(".number").html()) + parseFloat(target.parentNode.nextElementSibling.nextElementSibling.
                             nextElementSibling.nextElementSibling.children[1].value)))
                     } else {
+                        //未选中，总价减。。。。，总数量减。。。。。
                         $(".allprice").html(parseFloat($(".allprice").html()) -
                             parseInt(target.parentNode.nextElementSibling.nextElementSibling.
                                 nextElementSibling.nextElementSibling.nextElementSibling.innerHTML))
@@ -172,61 +177,67 @@
                     for (var i = 0; i < abox.length; i++) {
                         if (abox[i].checked) {
                             subnum++;
-                            // kj = kj+parseFloat($(target).attr("kk"));
                         }
                     }
+                    //判断全选按钮是否要被选中
                     if (subnum == abox.length) {
                         that.all.checked = true;
                     } else {
                         that.all.checked = false;
                     }
-                    // that.number.innerHTML = kj;
                 }
-                //》》》》》》》》》》如果点击是“+”按钮
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~如果点击是“+”按钮
                 if (target.className == "addnum") {
-                    that.id = target.getAttribute("index");
+                    that.id = target.getAttribute("index"); //该条数据对应的数量值加一（每点一次加一不要加错了）
                     target.previousElementSibling.value = parseInt(target.previousElementSibling.value) + 1;
-                    var p = $(target).attr("price");
-                    var n = parseInt(target.previousElementSibling.value);
-                    target.parentNode.nextElementSibling.innerHTML = p * n;
+                    var p = $(target).attr("price");    //p 为该条数据的单价
+                    var n = parseInt(target.previousElementSibling.value);  //n 为该条数据对应数量
+                    target.parentNode.nextElementSibling.innerHTML = p * n; //小计为n*p
+                    //如果该条数据对应的小按钮被选中的话
                     if (target.parentNode.parentNode.children[0].children[0].checked) {
+                        //总价为总价加上该条数据对应的小计
                         $(".allprice").html(parseFloat($(".allprice").html()) + parseFloat($(target).attr("price")));
+                        //总数量为总数量加一，记住是加一
                         $(".number").html(parseFloat(parseFloat($(".number").html()) + 1));
                     }
-                    that.add();
+                    that.add();//改变localstorage中该数据的值
                 }
-                //》》》》》》》》》》如果点击是 “-” 按钮
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~·~如果点击是 “-” 按钮
                 if (target.className == "cut") {
-                    that.id = target.getAttribute("index");
-                    if (target.nextElementSibling.value > 1) {
+                    that.id = target.getAttribute("index");     //这里和加不一样，不能上来就减，先判断改条数据的数量输入框中的值是否大于一（购物车最小值为1）
+                    if (target.nextElementSibling.value > 1) {      //如果值大于一的话，将对应的value减一
                         target.nextElementSibling.value = parseFloat(target.nextElementSibling.value) - 1;
                         var p = parseFloat($(target).attr("price"));
                         var n = parseFloat(target.nextElementSibling.value);
                         target.parentNode.nextElementSibling.innerHTML = p * n;
+                        //如果对应的小按钮被选中的话，总价为总价减去该条数据对应的单价（不是小计），总数量也减一
                         if (target.parentNode.parentNode.children[0].children[0].checked) {
                             $(".allprice").html(parseFloat($(".allprice").html()) - parseFloat($(target).attr("price")));
                             $(".number").html(parseFloat(parseFloat($(".number").html()) - 1));
                         }
                     }
-                    that.cut();
+                    that.cut();//更新goods数据
                 }
             })
-            //》》》》》》》》点击全选按钮
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~点击全选按钮
             this.all.addEventListener("click", function (eve) {
                 var e = eve || window.event;
                 e.stopPropagation();
-                if (that.all.checked == true) {
-                    that.display();
-                    $(".allprice").html(that.allp);
-                    $(".number").html(that.fpx);
+                if (that.all.checked == true) {     //如果全选按钮是被选中状态
+                    that.display();         //重新渲染页面，不重新渲染页面，如果点击全选之前已经执行加或者减操作，再点击全选按钮，allp和fpx的值会不对应，这里特别重要
+                    $(".allprice").html(that.allp);     //总价为allp
+                    $(".number").html(that.fpx);        //总量为fpx
                     var abox = document.querySelectorAll(".singal-checkbox");
+                    //让所有小按钮被选中
                     for (var i = 0; i < abox.length; i++) {
                         abox[i].checked = true;
                     }
                 } else {
+                    //如果全选按钮没被选中（这里一定是全选按钮先被选中，再点击然后不被选中的，因为这是在点击全选按钮的事件下的判断）
                     $('.allprice').html(0);
                     $(".number").html(0);
                     var abox = document.querySelectorAll(".singal-checkbox");
+                    //所有小按钮不能被选中
                     for (var i = 0; i < abox.length; i++) {
                         abox[i].checked = false;
                     }
@@ -236,23 +247,23 @@
         updateCookie() {
             for (var i = 0; i < this.goods.length; i++) {
                 if (this.goods[i].goodsid == this.id) {
-                    this.goods.splice(i, 1);
+                    this.goods.splice(i, 1);//在goods中，将该数据 删除
                 }
             }
             localStorage.setItem("goods", JSON.stringify(this.goods))
         }
         add() {
-            for (var i = 0; i < this.goods.length; i++) {   //遍历goods数组
-                if (this.goods[i].goodsid === this.id) {         //如果goods中的id与this.id相等的话
+            for (var i = 0; i < this.goods.length; i++) {   
+                if (this.goods[i].goodsid === this.id) {         
                     this.goods[i].num++;                    //让goods中id对应的num的值++
                     localStorage.setItem("goods", JSON.stringify(this.goods))//重新设置goods
                 }
             }
         }
         cut() {
-            for (var i = 0; i < this.goods.length; i++) {   //遍历goods数组
-                if (this.goods[i].goodsid == this.id) {         //如果goods中的id与this.id相等的话
-                    this.goods[i].num--;                    //让goods中id对应的num的值--
+            for (var i = 0; i < this.goods.length; i++) {   
+                if (this.goods[i].goodsid == this.id) {         
+                    this.goods[i].num--;                    //让goods中id对应的num的值减一
                     if (this.goods[i].num <= 1) {    //如果对应的num的值小于1 的话
                         this.goods[i].num = 1       //让num的值变为1
                     }
