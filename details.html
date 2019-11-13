@@ -27,11 +27,11 @@
                         <!-- <img src="" alt=""> -->
                     </div>
                     <div class="main-lb">
-                        <span>👈</span>
+                        <span class="ll">👈</span>
                         <ul class="dots">
                             <!-- <li></li> -->
                         </ul>
-                        <span>👉</span>
+                        <span class="rr">👉</span>
                     </div>
                 </div>
                 <div class="main-r">
@@ -204,7 +204,9 @@
             //隐藏的大盒子的显示位置
             $(".scalimg").css({ "left": -x * 2 + "px", "top": -y * 2 + "px" })
         }
-        addEvent() {
+        addEvent(eve) {
+            var e = eve||window.event;
+            e.preventDefault();
             var that = this;
             $(".addcart")[0].onclick = function (e) {
                 console.log("cc")
@@ -228,6 +230,18 @@
                 $(".scal").html(`<img src="${that.res[that.ic].img[t]}" alt="" class="scalimg">`);
                 that.scale();
             })
+            $(".rr").on("click",function(){
+                var dotsli = document.querySelectorAll(".dots li");
+                $(".dots").append(dotsli[0]);
+                // $(".dots li").eq(0).clone().appendTo($(".dots"))
+                
+            })
+            $(".ll").on("click",function(){
+                var dotsli = document.querySelectorAll(".dots li");
+                $(".dots").prepend(dotsli[dotsli.length-1]);
+                return false;
+            })
+            
 
         }
         setCookie() {

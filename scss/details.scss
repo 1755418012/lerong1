@@ -47,15 +47,16 @@
             }
             .dots{
                 // float: left;
+                position: relative;
                 margin-top: 10px;
                 width: 405px;
                 height: 72px;
                 // border: 1px solid red;
                 overflow: hidden;
                 li{
-                    &:nth-child(1){
-                        border: 1px solid #F01E00;
-                    }
+                    // &:nth-child(1){
+                    //     border: 1px solid #F01E00;
+                    // }
                     width: 70px;
                     height: 70px;
                     float: left;
