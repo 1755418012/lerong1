@@ -17,32 +17,15 @@
             <ul class="c-top">
                 <li><span><input class="all" type="checkbox"> 全选</span></li>
                 <li class="li1"><span>商品</span></li>
-                <li class="li2"><span>单价</span></li>
-                <li></li>
+                <li class="li2"><span>单价(元)</span></li>
+                <li class="li3"><span>小计(元)</span> </li>
             </ul>
             <div class="car-bottom">
                 <ul class="c-bom">
-                    <!-- <li>
-                        <ul>
-                            <li class="check"><input type="checkbox" num="${this.num}" ap="${this.res[i].money}"
-                                    id="checked" class="singal-checkbox" /></li>
-                            <li class="liimg"><img src="${this.res[i].img[0]}" alt="" style="width:100px;height:100px">
-                            </li>
-                            <li class="liname">${this.res[i].id}</li>
-                            <li class="liprice">￥${this.res[i].money}</li>
-                            <li class="libtn">
-                                <button price="${this.res[i].money}" class="cut">-</button>
-                                <input type="text" min="1" value="${this.goods[j].num}">
-                                <button price="${this.res[i].price}" class="addnum">+</button>
-                            </li>
-                            <li class="price">小计: ￥${this.num * this.res[i].money}</li>
-                            <li><span class="del">删除</span></li>
-                        </ul>
-                    </li> -->
+                    
                 </ul>
             </div>
         </div>
-
     </div>
     <div class="sortfooter"></div>
 </body>
@@ -102,14 +85,14 @@
                                 <li class="check"><input type="checkbox"  ap="${this.res[i].money}" kk="${this.goods[j].num}" id="checked" class="singal-checkbox"/></li>                               
                                 <li class="liimg"><img src="${this.res[i].img[0]}" alt="" style="width:100px;height:100px"></li>
                                 <li class="liname">${this.res[i].id}</li>
-                                <li class="liprice">￥${this.res[i].money}</li>
+                                <li class="liprice">${this.res[i].money}</li>
                                 <li class="libtn">
                                     <button price="${this.res[i].money}"  class="cut" index="${this.res[i].id}">-</button>
                                     <input type="text" min="1" value="${this.goods[j].num}">
                                     <button price="${this.res[i].money}"  class="addnum" index="${this.res[i].id}">+</button>
                                 </li>
                                 <li class="price">${this.num * this.res[i].money}</li>
-                                <li><span class="del" index="${this.res[i].id}" kk="${this.goods[j].num}">删除</span></li>
+                                <li><span class="del" index="${this.res[i].id}" kk="${this.goods[j].num}">删  除</span></li>
                             </ul>
                         </li>
                         
@@ -127,7 +110,7 @@
             <ul class="car-aside">
                 <li class="aside1">您共选购<span class="number">0</span>件商品</li>
                 <li class="allpriceli">共计<span class="allprice">0</span>元</li>
-                <li>结算</li>
+                <li class="settle">结  算</li>
             </ul>    
             `;
         }

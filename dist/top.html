@@ -291,6 +291,7 @@ nav {
     }
     $(".quit")[0].onclick = function() {
             $.cookie("login","off");
+            $.cookie("ready","off");
             $(".user-btn").css({
                 display:"block"
             })
