@@ -78,7 +78,7 @@ gulp.task('build', ['copy-html',  'copy-js', 'copy-data', 'copy-assets', 'scss2c
 gulp.task('server', () => {
     connect.server({
         // host:'0.0.0.0',
-        // port:8080,
+        port:8081,
         root: 'dist',
         livereload: true
     })

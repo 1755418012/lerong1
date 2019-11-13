@@ -135,6 +135,8 @@
           text-align: center;
           border: 1px solid #f0f0f0;
           margin: 0 3px; }
+          .main-m .main-l .main-lb .dots li:nth-child(1), .main-m .main-l .main-lb .dots .tv .tv-header .tv-headerL li:nth-child(2), .tv .tv-header .tv-headerL .main-m .main-l .main-lb .dots li:nth-child(2), .main-m .main-l .main-lb .dots .parts .parts-header .parts-headerL li:nth-child(2), .parts .parts-header .parts-headerL .main-m .main-l .main-lb .dots li:nth-child(2), .main-m .main-l .main-lb .dots .life .life-header .life-headerL li:nth-child(2), .life .life-header .life-headerL .main-m .main-l .main-lb .dots li:nth-child(2) {
+            border: 1px solid #F01E00; }
           .main-m .main-l .main-lb .dots li img {
             display: block;
             margin: 0 auto;

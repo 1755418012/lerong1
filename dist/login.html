@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,72 +8,74 @@
     <title>Document</title>
     <link rel="stylesheet" href="./css/main.css">
 </head>
+
 <body>
-        <div class="le_top">
-            <div class="le_top_box">
-                <a href="" class="logo_url">
-                    <img src="https://i3.letvimg.com/lc03_user/201905/21/11/21/155840875152248.png"/>
-                </a>
-                <ul class="regi_top_r f_fr">
-                    <li>语言：简体中文</li>
-                    <li>|</li>
-                    <li>国家/地区：中国</li>
-                    <li>|</li>
-                    <li>帮助</li>
-                </ul>
-            </div>
-            <div class="login_box_backbg">
-                <div class="regi_login_form_wrap">
-                    <div class="regi_login_form_box">
-                        <div class="regi_login_form login_form">
-                            <p class="part_top reg_top8">
-                                <span class="top_title">登录</span>
-                                <a href="#" class="blu bluHover">✉ 短信验证码登录</a>
-                            </p>
-                            <p class="part_top2">
-                                <span class="error" errorname="loginname"></span>
-                            </p>
-                            <div class="posi_box">
-                                <ul class="regi_ul regi_login_ul">
-                                    <li class="regi_form_input">
-                                        <i class="icon IconPeople">📞</i>
-                                        <input type="text" placeholder="账号" style="outline:none" class="user name1">
-                                    </li>
-                                    <li class="regi_form_input">
-                                            <i class="icon IconPeople">👜</i>
-                                            <input type="password" placeholder="密码" style="outline:none" class="pass password">
-                                    </li>
-                                    <li class="regi_form_input">
-                                            <i class="icon IconPeople">🎰</i>
-                                            <input type="text" placeholder="请输入验证码,点击切换" style="outline:none" id="ss" class="code">
-                                            <span class="yzm" style="font-weight: bold;"></span>
-                                    </li>
-                                    <li class="regi_agree">
-                                        <label for="">
-                                            <input type="checkbox" checked="true">
-                                            记住登录状态
-                                            <a class="resetpass">重置密码</a>
-                                        </label>
-                                    </li>
-                                    <li class="reg">
-                                        <a href="#" class="login">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</a>
-                                    </li>
-                                </ul>
-                            </div>
+    <div class="le_top">
+        <div class="le_top_box">
+            <a href="" class="logo_url">
+                <img src="https://i3.letvimg.com/lc03_user/201905/21/11/21/155840875152248.png" />
+            </a>
+            <ul class="regi_top_r f_fr">
+                <li>语言：简体中文</li>
+                <li>|</li>
+                <li>国家/地区：中国</li>
+                <li>|</li>
+                <li>帮助</li>
+            </ul>
+        </div>
+        <div class="login_box_backbg">
+            <div class="regi_login_form_wrap">
+                <div class="regi_login_form_box">
+                    <div class="regi_login_form login_form">
+                        <p class="part_top reg_top8">
+                            <span class="top_title">登录</span>
+                            <a href="#" class="blu bluHover">✉ 短信验证码登录</a>
+                        </p>
+                        <p class="part_top2">
+                            <span class="error" errorname="loginname"></span>
+                        </p>
+                        <div class="posi_box">
+                            <ul class="regi_ul regi_login_ul">
+                                <li class="regi_form_input">
+                                    <i class="icon IconPeople">📞</i>
+                                    <input type="text" placeholder="账号" style="outline:none" class="user name1">
+                                </li>
+                                <li class="regi_form_input">
+                                    <i class="icon IconPeople">👜</i>
+                                    <input type="password" placeholder="密码" style="outline:none" class="pass password">
+                                </li>
+                                <li class="regi_form_input">
+                                    <i class="icon IconPeople">🎰</i>
+                                    <input type="text" placeholder="请输入验证码,点击切换" style="outline:none" id="ss"
+                                        class="code">
+                                    <span class="yzm" style="font-weight: bold;"></span>
+                                </li>
+                                <li class="regi_agree">
+                                    <label for="">
+                                        <input type="checkbox" checked="true">
+                                        记住登录状态
+                                        <a class="resetpass">重置密码</a>
+                                    </label>
+                                </li>
+                                <li class="reg">
+                                    <a href="#" class="login">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-    
                 </div>
+
             </div>
         </div>
-    </body>  
-    <script src="./assets/jquery.js"></script>
-    <script src="./js/main.js"></script>
-    <script src="./assets/jquery.banner.1.3.js"></script>
-    <script src="./assets/ajax.js"></script>
-    <script src="./assets/jquery.cookie.js"></script>
-    <script>
-    var t1=t2=t3=t4=false; 
+    </div>
+</body>
+<script src="./assets/jquery.js"></script>
+<script src="./js/main.js"></script>
+<script src="./assets/jquery.banner.1.3.js"></script>
+<script src="./assets/ajax.js"></script>
+<script src="./assets/jquery.cookie.js"></script>
+<script>
+    var t1 = t2 = t3 = t4 = false;
     var code = document.querySelector(".code");
     var tcode = document.querySelector(".yzm");
     var name1 = document.querySelector(".name1");
@@ -81,28 +84,28 @@
     var error = document.querySelector(".error");
 
     tcode.innerHTML = rs();
-    tcode.onclick = function(){
+    tcode.onclick = function () {
         tcode.innerHTML = rs();
     }
-    code.onblur = function(){
+    code.onblur = function () {
         var c = code.value;
         var tc = tcode.innerHTML;
-        if(c!=tc){
+        if (c != tc) {
             $(".error").css({
-                color:"#d31723",
+                color: "#d31723",
             })
             error.innerHTML = "⚠ 验证码输入错误";
             code.value = "";
             tcode.innerHTML = rs();
-        }else{
+        } else {
             $(".error").css({
-                color:"green",
+                color: "green",
             })
             error.innerHTML = "验证码正确";
             t4 = true;
         }
     }
-    login.onclick = function(){
+    login.onclick = function () {
         console.log(name1.value)
         console.log(password.value)
         console.log($.cookie("name"))
@@ -112,36 +115,43 @@
         var p = password.value;
         var cookiename = $.cookie("name1");
         var cookiepass = $.cookie("pass");
-        if(n==cookiename&&p==cookiepass&&t4==true){
-            $.cookie("login","on",{expires:30})
+        if (n == cookiename && p == cookiepass && t4 == true) {
+            $.cookie("login", "on", { expires: 30 })
             alert("登录成功");
-            window.location.href = "http://localhost:8080/index.html";
-        }else{
+            if ($.cookie("ready") == "on") {
+                window.location.href = "./car.html";
+
+            } else {
+                window.location.href = "./index.html";
+
+            }
+        } else {
             $(".error").css({
-                color:"#d31723",
+                color: "#d31723",
             })
             error.innerHTML = "账号或密码输入错误";
         }
     }
 
-function rs() {
+    function rs() {
         var str = "";
-        for(var i=0;i<4;i++){
-            var num = random(0,9);
-            var az = String.fromCharCode(random(97,122));
-            var AZ = String. fromCharCode(random(65,90));
+        for (var i = 0; i < 4; i++) {
+            var num = random(0, 9);
+            var az = String.fromCharCode(random(97, 122));
+            var AZ = String.fromCharCode(random(65, 90));
 
-            str += str+num+az+AZ;
+            str += str + num + az + AZ;
         }
         //开始真正的随机抽取四个
         var stq = "";
-        for(var j=0;j<4;j++){
-            stq += str[random(0,str.length-1)]
+        for (var j = 0; j < 4; j++) {
+            stq += str[random(0, str.length - 1)]
         }
         return stq;
     }
-    function random(a,b) {
-        return Math.round(Math.random()*(a-b)+b);
+    function random(a, b) {
+        return Math.round(Math.random() * (a - b) + b);
     }
-    </script>
-    </html>>
+</script>
+
+</html>>

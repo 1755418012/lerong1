@@ -79,17 +79,18 @@
             this.spa = document.querySelector(".spa");
             this.load();
             this.jus2();
+            this.scale();
             this.ic = $.cookie("ic");
         }
-        jus2(){
-            $(".tan1").on("click",function(){
+        jus2() {
+            $(".tan1").on("click", function () {
                 $(".tan").css({
-                    display:"none",
+                    display: "none",
                 })
             })
-            $(".tan2").on("click",function(){
+            $(".tan2").on("click", function () {
                 $(".tan").css({
-                    display:"none",
+                    display: "none",
                 })
                 window.location.href = "./car.html";
             })
@@ -106,7 +107,7 @@
                     this.display4();
                 }
             })
-            this.scale();
+            
             // this.addEvent();
         }
         display1() {
@@ -124,6 +125,7 @@
                 `
             }
             this.dots.innerHTML = str1;
+            // this.addEvent();
         }
         display3() {
             var str2 = "";
@@ -152,14 +154,16 @@
         }
         scale() {
             var that = this;
-            $(".main-lt").hover(function () {
+
+            $(".main-lt").on("mouseenter",function(){
                 $(".spa").css({
                     display: "block",
                 })
                 $(".scal").css({
                     display: "block",
                 })
-            }, function () {
+            })
+            $(".main-lt").on("mouseleave",function(){
                 $(".spa").css({
                     display: "none",
                 })
@@ -167,6 +171,11 @@
                     display: "none",
                 })
             })
+            // $(".main-lt").hover(function () {
+                
+            // }, function () {
+                
+            // })
             this.mlt.onmousemove = function (eve) {
                 var e = eve || window.event;
                 that.move(e);
@@ -178,19 +187,15 @@
             //获取小盒子可移动的距离
             var x = e.clientX - $(".main-lt").offset().left - 112;
             var y = e.clientY - $(".main-lt").offset().top - 112;
-            // 判断小盒子到大盒子左边距为0时,让他保持为0
             if (x < 0) {
                 x = 0;
             }
-            // 判断小盒子到大盒子上边距为0时,让他保持为0
             if (y < 0) {
                 y = 0;
             }
-            // 判断小盒子到大盒子右边距为最大可移动距离时,让他保持为最大可移动距离
             if (x > 224) {
                 x = 224
             }
-            // 判断小盒子到大盒子下边距为最大可移动距离时,让他保持为最大可移动距离
             if (y > 224) {
                 y = 224
             }
@@ -207,10 +212,22 @@
                 that.goodsid = $(".addcart").attr("index");
                 that.price = $(".addcart").attr("price");
                 $(".tan").css({
-                    display:"block",
+                    display: "block",
                 })
                 that.setCookie();
             }
+            $(".dotli").on("click", function () {
+                console.log($(this).index());
+                var t = $(this).index();
+                $(this).css({
+                    border: "1px solid #F01E00"
+                }).siblings().css({
+                    border: "1px solid #f0f0f0",
+                })
+                that.mlt.innerHTML = `<img src="${that.res[that.ic].img[t]}" alt="">`;
+                $(".scal").html(`<img src="${that.res[that.ic].img[t]}" alt="" class="scalimg">`);
+                that.scale();
+            })
 
         }
         setCookie() {
@@ -219,8 +236,8 @@
                 this.goods.push({
                     id: this.id,
                     num: 1,
-                    goodsid:this.goodsid,
-                    price:this.price
+                    goodsid: this.goodsid,
+                    price: this.price
                 })
             } else {
                 var onoff = true;
@@ -234,8 +251,8 @@
                     this.goods.push({
                         id: this.id,
                         num: 1,
-                        goodsid:this.goodsid,
-                        price:this.price
+                        goodsid: this.goodsid,
+                        price: this.price
                     })
                 }
             }

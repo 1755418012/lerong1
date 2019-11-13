@@ -56,6 +56,7 @@
     $('.sorttop').load("./top.html");
     $(".sortfooter").load("./footer.html");
     if($.cookie("login")!="on"){
+        $.cookie("ready","on");
         alert("请先登录后再购买");
         window.location.href = "./login.html";
     }

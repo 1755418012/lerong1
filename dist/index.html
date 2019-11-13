@@ -457,7 +457,7 @@
         <li class="lc-parts"><a href="#">🎧</a></li>
         <li class="lc-life"><a href="#">👜</a></li>
         <li class="lc-top"><a href="#">🚀</a></li>
-        <li class="lc-cart"><a href="#">🛒</a></li>
+        <li class="lc-cart"><a href="./car.html">🛒</a></li>
     </ul>
     <!-- 楼层 -->
 
@@ -495,6 +495,7 @@
     $(".quit")[0].onclick = function() {
         console.log("tuichu")
             $.cookie("login","off");
+            $.cookie("ready","off");
             $(".user-desc")[0].innerHTML = "欢迎来到乐融商城";
             $(".user-headimg")[0].innerHTML = '<img src="http://img2-lemall.letvimg.com/le-cloud/resource/images/home/20181122/default.jpg" />'
             $(".user-desc").css({
