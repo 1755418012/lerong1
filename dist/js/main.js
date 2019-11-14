@@ -105,35 +105,36 @@
     //搜索框
 
 
-    //轮播图
+    // //轮播图
 
 
-    $(".menu-select-btn").children("li").hover(function () {
-        $(".menu-content-wrap").css({
-            display: "block"
-        });
-        console.log($(this).index());
-        $(".menu-content-wrap").children("div").eq($(this).index()).css({
-            display: "block"
-        }).siblings().css({
-            display: "none"
-        });
-        $(".menu-content-wrap").hover(function () {
-            $(".menu-content-wrap").css({
-                display: "block"
-            });
-        }, function () {
-            $(".menu-content-wrap").css({
-                display: "none"
-            });
-        });
-    }, function () {
-        $(".menu-content-wrap").css({
-            display: "none"
-        });
-    });
+    // $(".menu-select-btn").children("li").hover(function(){
+    //     $(".menu-content-wrap").css({
+    //         display:"block"
+    //     })
+    //     // console.log($(this).index())
+    //     $(".menu-content-wrap").children("div").
+    //     eq($(this).index()).css({
+    //         display:"block"
+    //     }).siblings().css({
+    //         display:"none"
+    //     })
+    //     $(".menu-content-wrap").hover(()=>{
+    //         $(".menu-content-wrap").css({
+    //             display:"block"
+    //         })
+    //     },()=>{
+    //         $(".menu-content-wrap").css({
+    //             display:"none"
+    //         })
+    //     })
+    // },()=>{
+    //     $(".menu-content-wrap").css({
+    //         display:"none"
+    //     })
+    // })
 
-    //轮播图
+    // //轮播图
 
 
     //楼层
@@ -152,22 +153,22 @@
             scrollTop: 2290
         }, 500);
     });
-    $(".lc-top").on("click", function () {
-        $("html").animate({
-            scrollTop: 0
-        }, 500);
-    });
-    $(document).on("scroll", function () {
-        if ($(document).scrollTop() > 300) {
-            $(".lc-top").css({
-                display: "block"
-            });
-        } else {
-            $(".lc-top").css({
-                display: "none"
-            });
-        }
-    });
-    //楼层
+    // $(".lc-top").on("click",function(){
+    //     $("html").animate({
+    //         scrollTop:0
+    //     },500)
+    // })
+    // $(document).on("scroll",function(){
+    //     if($(document).scrollTop()>300){
+    //         $(".lc-top").css({
+    //             display:"block",
+    //         })
+    //     }else{
+    //         $(".lc-top").css({
+    //             display:"none",
+    //         })
+    //     }
+    // })
+    // 楼层
 
 })(jQuery);
