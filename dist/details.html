@@ -155,10 +155,37 @@
             var str3 = "";
             for (var i = 0; i < this.res[this.ic].bgimg.length; i++) {
                 str3 += `
-                <p><img src="${this.res[this.ic].bgimg[i]}" alt=""></p>
+                <p class="imgg"><img data-src="${this.res[this.ic].bgimg[i]}" alt=""></p>
                 `
             }
             this.mtu.innerHTML = str3;
+            this.lazyload();
+        }
+        lazyload(){
+            var imgs = document.querySelectorAll(".imgg img");
+            console.log(imgs.length);
+            var clientH = document.documentElement.clientHeight;
+            // console.log(clientH);
+            var scrollT = document.documentElement.scrollTop;
+            // var scrollT;
+            var arr = [];
+            for(var i=0;i<imgs.length;i++){
+                arr.push(imgs[i]);
+            }
+            function ld(elements,cH,sT){
+                for(var i=0;i<arr.length;i++){
+                    if(arr[i].offsetTop < cH + sT){
+                        arr[i].src = arr[i].getAttribute("data-src");
+                        arr.splice(i,1);
+                        i--;
+                    }
+                }
+            }
+            ld(imgs,clientH,scrollT);
+            onscroll = function () {
+                var scrollT = document.documentElement.scrollTop;
+                ld(imgs,clientH,scrollT);
+            } 
         }
         scale() {
             var that = this;
