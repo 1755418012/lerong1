@@ -4,14 +4,13 @@ require.config({
         baseUrl:"../assets/",
     //	小模块的路径
         paths:{
-    //		名字：要引入的模块的路径
+    //  名字：要引入的模块的路径
             qa:"ma",
             qb:"mb",
             qc:"mc",
             jq:"./jquery"
         }
     })
-    
     
     require(["qa","qb","qc","jq"],(a,b,c,_)=>{     
         a.show();

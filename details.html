@@ -17,7 +17,9 @@
 </head>
 
 <body style="background: #fff;">
+    <!-- 添加公共样式头部 -->
     <div class="sorttop"></div>
+
     <div class="line"></div>
     <div class="main">
         <div class="container">
@@ -58,17 +60,20 @@
         </div>
     </div>
     <div class="tan">
-        <p>添加成功 ✅ </p>
+        <p>添加成功 ✔ </p>
         <div>
             <span style="background: #d80c18;color: #fff;" class="tan1">继续购物</span>
             <span class="tan2">去结算</span>
         </div>
     </div>
+
+    <!-- 添加公共样式的底部 -->
     <div class="sortfooter"></div>
 </body>
 <script>
-    $('.sorttop').load("./top.html");
-    $(".sortfooter").load("./footer.html");
+    $('.sorttop').load("./top.html");       //引入公共样式的头文件
+    $(".sortfooter").load("./footer.html"); //引入公共样式的尾部文件
+
     class Details {
         constructor() {
             this.url = "data/all.json";
@@ -83,6 +88,9 @@
             this.ic = $.cookie("ic");
         }
         jus2() {
+            //对于是否继续进行购物的判断，
+            //tan1 继续购物
+            //tan2 去购物车结算
             $(".tan1").on("click", function () {
                 $(".tan").css({
                     display: "none",
@@ -107,7 +115,7 @@
                     this.display4();
                 }
             })
-            
+
             // this.addEvent();
         }
         display1() {
@@ -155,7 +163,7 @@
         scale() {
             var that = this;
 
-            $(".main-lt").on("mouseenter",function(){
+            $(".main-lt").on("mouseenter", function () {
                 $(".spa").css({
                     display: "block",
                 })
@@ -163,7 +171,7 @@
                     display: "block",
                 })
             })
-            $(".main-lt").on("mouseleave",function(){
+            $(".main-lt").on("mouseleave", function () {
                 $(".spa").css({
                     display: "none",
                 })
@@ -172,9 +180,9 @@
                 })
             })
             // $(".main-lt").hover(function () {
-                
+
             // }, function () {
-                
+
             // })
             this.mlt.onmousemove = function (eve) {
                 var e = eve || window.event;
@@ -205,14 +213,13 @@
             $(".scalimg").css({ "left": -x * 2 + "px", "top": -y * 2 + "px" })
         }
         addEvent(eve) {
-            var e = eve||window.event;
+            var e = eve || window.event;
             e.preventDefault();
             var that = this;
             $(".addcart")[0].onclick = function (e) {
-                console.log("cc")
-                that.id = that.ic;
-                that.goodsid = $(".addcart").attr("index");
-                that.price = $(".addcart").attr("price");
+                that.id = that.ic;  //排序页面存的xx.attr("index")的值
+                that.goodsid = $(".addcart").attr("index");   //同上，商品对应的商品名
+                that.price = $(".addcart").attr("price");     //商品的价格
                 $(".tan").css({
                     display: "block",
                 })
@@ -230,38 +237,37 @@
                 $(".scal").html(`<img src="${that.res[that.ic].img[t]}" alt="" class="scalimg">`);
                 that.scale();
             })
-            $(".rr").on("click",function(){
+            $(".rr").on("click", function () {
                 var dotsli = document.querySelectorAll(".dots li");
                 $(".dots").append(dotsli[0]);
-                // $(".dots li").eq(0).clone().appendTo($(".dots"))
-                
             })
-            $(".ll").on("click",function(){
+            $(".ll").on("click", function () {
                 var dotsli = document.querySelectorAll(".dots li");
-                $(".dots").prepend(dotsli[dotsli.length-1]);
+                $(".dots").prepend(dotsli[dotsli.length - 1]);
                 return false;
             })
-            
+
 
         }
         setCookie() {
+            //设置goods，添加过就获取goods，没有就设置为一个空[]
             this.goods = localStorage.getItem("goods") ? JSON.parse(localStorage.getItem("goods")) : [];
-            if (this.goods.length === 0) {
+            if (this.goods.length === 0) {  //如果还没有添加过的话，添加如下信息
                 this.goods.push({
-                    id: this.id,
-                    num: 1,
-                    goodsid: this.goodsid,
-                    price: this.price
+                    id: this.id,    //在all.json中的下标
+                    num: 1, //数量为1
+                    goodsid: this.goodsid,  // 商品名
+                    price: this.price   //商品价格
                 })
             } else {
                 var onoff = true;
                 for (var i = 0; i < this.goods.length; i++) {
-                    if (this.goods[i].id === this.id) {
-                        this.goods[i].num++;
-                        onoff = false;
+                    if (this.goods[i].id === this.id) { //如果从详情页添加的商品在goods中已经存在
+                        this.goods[i].num++;    //将商品的数量加一
+                        onoff = false;  //onoff 转为false
                     }
                 }
-                if (onoff) {
+                if (onoff) {    //如果之前没有添加过，添加如下
                     this.goods.push({
                         id: this.id,
                         num: 1,

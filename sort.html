@@ -46,8 +46,8 @@
 </body>
 
 <script>
-    $('.sorttop').load("./top.html");
-    $(".sortfooter").load("./footer.html");
+    $('.sorttop').load("./top.html");       //引入公共样式的头文件
+    $(".sortfooter").load("./footer.html"); //引入公共样式的尾文件
     class Sort {
         constructor() {
             this.cont = document.querySelector(".st");
@@ -57,20 +57,20 @@
             this.url = "data/all.json";
             this.load();
         }
-        load() {
+        load() {          //ajax请求all.json中的所有数据
             var that = this;
             ajax({
                 url: this.url,
                 success: (res) => {
                     that.res = JSON.parse(res);
                     that.reo();
-                    that.display();
+                    that.display();     // 渲染页面
                 }
             })
         }
-        reo() {
+        reo() {     //按需求排序
             var that = this;
-            this.hight.on("click", () => {
+            this.hight.on("click", () => {  //价格从低到高
                 this.hight.css({
                     color:"#d80c18",
                 }).siblings().css({
@@ -79,10 +79,10 @@
                 that.res.sort((a, b) => {
                     return a.money - b.money;
                 })
-                that.display();
+                that.display();         //再次渲染页面
 
             });
-            this.low.on("click", () => {
+            this.low.on("click", () => {    //价格从高到低
                 this.low.css({
                     color:"#d80c18",
                 }).siblings().css({
@@ -120,12 +120,11 @@
 
             this.dick();
         }
-        dick() {
+        dick() {        //如果点击某个商品对应的小方框
             $(".s-cont").on("click", function () {
-                var t = $(this).attr("index");
-                $.cookie("ic", t);
-                window.open("./details.html");
-                // window.location.href = "./details.html";
+                var t = $(this).attr("index");  
+                $.cookie("ic", t);  //先将该商品对应的index属性存在cookie中,没用jQuery的index()方法是因为还要进行排序操作，排序后index()的值不好用了
+                window.open("./details.html");  //跳转到详情页面
             })
 
         }

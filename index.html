@@ -476,8 +476,8 @@
     //判断是否登录，如果检测到登录的话，显示头像，“注册”“登录”消失，“退出”显示
     if ($.cookie("login") === "on") {
         $(".user-headimg")[0].innerHTML = '<img src="http://i0.letvimg.com/lc02_user/201609/01/18/38/14727263285407_70_70.jpg"/>'
-        var vip2 = $.cookie("name").slice(7, 11);
-        var vip1 = $.cookie("name").slice(0, 3);
+        var vip2 = $.cookie("name").slice(7, 11);   //截取手机号的后四位
+        var vip1 = $.cookie("name").slice(0, 3);    //截取手机号的前四位
         $(".user-desc")[0].innerHTML = vip1 + "****" + vip2;
         $(".user-desc").css({
             color: "#2884c7",
@@ -497,12 +497,10 @@
         })
         // console.log("登录");
     }
-    $(".quit").on("click", function () {
+    $(".quit").on("click", function () {    //点击退出按钮
         // console.log($.cookie("login"));
         setCookie("login","off");
         setCookie("ready","off");
-        // $.cookie("login", "off");
-        // $.cookie("ready", "off");
         $(".user-desc")[0].innerHTML = "欢迎来到乐融商城";
         $(".user-headimg")[0].innerHTML = '<img src="http://img2-lemall.letvimg.com/le-cloud/resource/images/home/20181122/default.jpg" />'
         $(".user-desc").css({
@@ -526,7 +524,7 @@
 
 
 
-    $(".banner1").banner({
+    $(".banner1").banner({      //轮播图相关插件的参数配置
         imgs: $(".imgbox").find("li"),
         left: $("#left"),
         right: $("#right"),
@@ -571,6 +569,7 @@
             this.wrap61 = document.querySelector(".wrap6-ul1");
             this.load();
         }
+        //ajax请求json数据
         load() {
             var that = this;
             ajax({
@@ -616,6 +615,8 @@
                 }
             })
         }
+        
+        //将请求到的数据渲染页面
         display1() {
             let str1 = "";
             let str2 = "";
@@ -894,6 +895,7 @@
 
 
     //超级电视
+    //同上 ajax请求---渲染页面
     class Tv {
         constructor() {
             this.tvUl = document.querySelector(".tv-footer-ul");
@@ -948,6 +950,7 @@
 
 
     //精选配件
+    //同上 ajax请求---渲染页面
     class Parts {
         constructor() {
             this.partsUl = document.querySelector(".pf-r");
@@ -986,6 +989,7 @@
 
 
     //生活家
+    //同上 ajax请求---渲染页面
     class Life {
         constructor() {
             this.lifeUl = document.querySelector(".lf-r");

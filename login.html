@@ -110,20 +110,21 @@
         console.log(password.value)
         console.log($.cookie("name"))
         console.log($.cookie("pass"))
-        console.log(t4);
+        // console.log(t4);
         var n = name.value;
         var p = password.value;
         var cookiename = $.cookie("name1");
         var cookiepass = $.cookie("pass");
+        //如果输入的用户名和密码与cookie中存储的都相等的话
         if (n == cookiename && p == cookiepass && t4 == true) {
             $.cookie("login", "on", { expires: 30 })
             alert("登录成功");
+            //如果是ready的值为on的话，直接跳转到购物车页面
             if ($.cookie("ready") == "on") {
                 window.location.href = "./car.html";
-
+            //否则跳转到首页
             } else {
                 window.location.href = "./index.html";
-
             }
         } else {
             $(".error").css({
@@ -139,10 +140,8 @@
             var num = random(0, 9);
             var az = String.fromCharCode(random(97, 122));
             var AZ = String.fromCharCode(random(65, 90));
-
             str += str + num + az + AZ;
         }
-        //开始真正的随机抽取四个
         var stq = "";
         for (var j = 0; j < 4; j++) {
             stq += str[random(0, str.length - 1)]
