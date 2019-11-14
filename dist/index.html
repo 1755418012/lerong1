@@ -189,7 +189,8 @@
                 <div id="user-box">
                     <div class="logout-wrap">
                         <div class="user-headimg">
-                            <img src="http://img2-lemall.letvimg.com/le-cloud/resource/images/home/20181122/default.jpg" />
+                            <img
+                                src="http://img2-lemall.letvimg.com/le-cloud/resource/images/home/20181122/default.jpg" />
                         </div>
                         <div class="user-title">Hi, 您好</div>
                         <div class="user-desc">欢迎来到乐融商城</div>
@@ -430,20 +431,20 @@
                     </div>
                     <div class="line">服务时间：8:00-21:00</div>
                     <p class="hint">
-                            *生活家频道商品服务<br>
-                            需联系详情页商家电话
+                        *生活家频道商品服务<br>
+                        需联系详情页商家电话
                     </p>
                 </div>
             </div>
             <div class="le_footer_down">
                 <div class="le_footer2_copyright">
-                        Copyright © 2004-2019 乐融商城 All rights reserved
-                        <span style="padding:0 10px;"> | </span>
-                        京ICP备19019019号-1
-                        <span style="padding:0 10px;"> | </span>
-                        京公网安备：11000002000099号
-                        <span style="padding:0 10px;"> | </span>
-                        <a href="">营业执照信息</a>
+                    Copyright © 2004-2019 乐融商城 All rights reserved
+                    <span style="padding:0 10px;"> | </span>
+                    京ICP备19019019号-1
+                    <span style="padding:0 10px;"> | </span>
+                    京公网安备：11000002000099号
+                    <span style="padding:0 10px;"> | </span>
+                    <a href="">营业执照信息</a>
                 </div>
             </div>
         </div>
@@ -468,55 +469,60 @@
 <script src="./assets/jquery.cookie.js"></script>
 <script src="./assets/ajax.js"></script>
 <script src="./js/main.js"></script>
+<script src="./assets/jquery.cookie.js"></script>
 <script src="./assets/module.js"></script>
+<script src="./assets/cookie.js"></script>
 <script>
     //判断是否登录，如果检测到登录的话，显示头像，“注册”“登录”消失，“退出”显示
-    if($.cookie("login")==="on"){
+    if ($.cookie("login") === "on") {
         $(".user-headimg")[0].innerHTML = '<img src="http://i0.letvimg.com/lc02_user/201609/01/18/38/14727263285407_70_70.jpg"/>'
-        var vip2 = $.cookie("name").slice(7,11);
-        var vip1 = $.cookie("name").slice(0,3);
-        $(".user-desc")[0].innerHTML = vip1+"****"+vip2;
+        var vip2 = $.cookie("name").slice(7, 11);
+        var vip1 = $.cookie("name").slice(0, 3);
+        $(".user-desc")[0].innerHTML = vip1 + "****" + vip2;
         $(".user-desc").css({
-            color:"#2884c7",
-            marginTop:20
+            color: "#2884c7",
+            marginTop: 20
         })
         $(".user-btn").css({
-            display:"none"
+            display: "none"
         })
         $(".index-login").css({
-            display:"none"
+            display: "none"
         })
         $(".index-register").css({
-            display:"none"
+            display: "none"
         })
         $(".quit").css({
-            display:"block"
+            display: "block"
         })
         // console.log("登录");
     }
-    $(".quit")[0].onclick = function() {
-        console.log("tuichu")
-            $.cookie("login","off");
-            $.cookie("ready","off");
-            $(".user-desc")[0].innerHTML = "欢迎来到乐融商城";
-            $(".user-headimg")[0].innerHTML = '<img src="http://img2-lemall.letvimg.com/le-cloud/resource/images/home/20181122/default.jpg" />'
-            $(".user-desc").css({
-            color:"#999999",
-                marginTop:0
-            })
-            $(".user-btn").css({
-                display:"block"
-            })
-            $(".index-login").css({
-                display:"block"
-            })
-            $(".index-register").css({
-                display:"block"
-            })
-            $(".quit").css({
-                display:"none"
-            })
-        }
+    $(".quit").on("click", function () {
+        // console.log($.cookie("login"));
+        setCookie("login","off");
+        setCookie("ready","off");
+        // $.cookie("login", "off");
+        // $.cookie("ready", "off");
+        $(".user-desc")[0].innerHTML = "欢迎来到乐融商城";
+        $(".user-headimg")[0].innerHTML = '<img src="http://img2-lemall.letvimg.com/le-cloud/resource/images/home/20181122/default.jpg" />'
+        $(".user-desc").css({
+            color: "#999999",
+            marginTop: 0
+        })
+        $(".user-btn").css({
+            display: "block"
+        })
+        $(".index-login").css({
+            display: "block"
+        })
+        $(".index-register").css({
+            display: "block"
+        })
+        $(".quit").css({
+            display: "none"
+        })
+    })
+
 
 
 
