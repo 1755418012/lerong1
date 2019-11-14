@@ -124,7 +124,8 @@
             $(".s-cont").on("click", function () {
                 var t = $(this).attr("index");
                 $.cookie("ic", t);
-                window.location.href = "http://localhost:8080/details.html";
+                window.open("./details.html");
+                // window.location.href = "./details.html";
             })
 
         }
