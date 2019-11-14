@@ -157,6 +157,17 @@
             scrollTop: 0
         }, 500);
     });
+    $(document).on("scroll", function () {
+        if ($(document).scrollTop() > 300) {
+            $(".lc-top").css({
+                display: "block"
+            });
+        } else {
+            $(".lc-top").css({
+                display: "none"
+            });
+        }
+    });
     //楼层
 
 })(jQuery);
