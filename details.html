@@ -161,17 +161,19 @@
             this.mtu.innerHTML = str3;
             this.lazyload();
         }
+        //懒加载的部分
         lazyload(){
             var imgs = document.querySelectorAll(".imgg img");
-            console.log(imgs.length);
+            // console.log(imgs.length);
             var clientH = document.documentElement.clientHeight;
             // console.log(clientH);
             var scrollT = document.documentElement.scrollTop;
             // var scrollT;
-            var arr = [];
-            for(var i=0;i<imgs.length;i++){
-                arr.push(imgs[i]);
-            }
+            var arr = Array.from(imgs);
+            // var arr = [];
+            // for(var i=0;i<imgs.length;i++){
+            //     arr.push(imgs[i]);
+            // }
             function ld(elements,cH,sT){
                 for(var i=0;i<arr.length;i++){
                     if(arr[i].offsetTop < cH + sT){
